@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "917736489332",
+    "firebase_url": "https://restaurantmanager-21259-default-rtdb.firebaseio.com",
+    "project_id": "restaurantmanager-21259",
+    "storage_bucket": "restaurantmanager-21259.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:917736489332:android:060bb50a63485c096cac21",
+        "android_client_info": {
+          "package_name": "com.example.restmng"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqwEKN6lMRi4BMJuGxR4uizWmIV4us0RE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:917736489332:android:908e696973aa25496cac21",
+        "android_client_info": {
+          "package_name": "com.example.waiterapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqwEKN6lMRi4BMJuGxR4uizWmIV4us0RE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

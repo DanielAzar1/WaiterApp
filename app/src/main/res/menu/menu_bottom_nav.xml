@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_home"
+        android:title="תפריט"
+        android:icon="@drawable/menu_bottom_nav" />
+
+    <item
+        android:id="@+id/nav_cart"
+        android:title="הזמנה"
+        android:icon="@drawable/order_bottom_nav"/>
+</menu>

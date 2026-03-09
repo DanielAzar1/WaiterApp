@@ -19,11 +19,21 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     private final OnCategoryClickListener listener;
     private int selectedPosition = 0; // Keep track of the selected item
 
+    /**
+     * Input: ArrayList<String> categories, OnCategoryClickListener listener
+     * Output: Void
+     * Function initializes the adapter
+     */
     public CategoryAdapter(ArrayList<String> categories, OnCategoryClickListener listener) {
         this.categories = categories;
         this.listener = listener;
     }
 
+    /**
+     * Input: ViewGroup parent, int viewType
+     * Output: CategoryViewHolder
+     * Function creates a new view
+     */
     @NonNull
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -32,6 +42,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         return new CategoryViewHolder(view);
     }
 
+    /**
+     * Input: CategoryViewHolder holder, int position
+     * Output: Void
+     * Function binds the data to the views
+     */
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         String category = categories.get(position);
@@ -49,6 +64,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         });
     }
 
+    /**
+     * Input: Void
+     * Output: int
+     * Function returns the number of items in the list
+     */
     @Override
     public int getItemCount() {
         return categories.size();
@@ -57,11 +77,21 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public static class CategoryViewHolder extends RecyclerView.ViewHolder {
         TextView tvCategoryName;
 
+        /**
+         * Input: View itemView
+         * Output: Void
+         * Function initializes the views
+         */
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
             tvCategoryName = itemView.findViewById(R.id.tvCategoryName);
         }
 
+        /**
+         * Input: String category, boolean isSelected
+         * Output: Void
+         * Function binds the data to the views
+         */
         void bind(String category, boolean isSelected) {
             tvCategoryName.setText(category);
             // This triggers the state change in your drawable and color selectors

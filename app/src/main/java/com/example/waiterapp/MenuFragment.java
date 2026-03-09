@@ -40,17 +40,32 @@ public class MenuFragment extends Fragment implements CategoryAdapter.OnCategory
         // Required empty public constructor
     }
 
+    /**
+     * Input: Bundle savedInstanceState
+     * Output: Void
+     * Function initializes the view
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * Input: LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState
+     * Output: View
+     * Function creates a new view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_menu_fragment, container, false);
     }
 
+    /**
+     * Input: View view, Bundle savedInstanceState
+     * Output: Void
+     * Function initializes the view
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -71,6 +86,11 @@ public class MenuFragment extends Fragment implements CategoryAdapter.OnCategory
         menuAdapter.setItems(FBref.startersList);
     }
 
+    /**
+     * Input: String category, int position
+     * Output: Void
+     * Function handles the category click
+     */
     @Override
     public void onCategoryClick(String category, int position) {
         switch (category) {
@@ -86,6 +106,11 @@ public class MenuFragment extends Fragment implements CategoryAdapter.OnCategory
         }
     }
 
+    /**
+     * Input: MenuItem item
+     * Output: Void
+     * Function adds an item to the cart
+     */
     @Override
     public void onItemClick(MenuItem item) {
         if (FBref.cartItems.containsKey(item))

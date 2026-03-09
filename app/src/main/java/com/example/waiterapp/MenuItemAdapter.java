@@ -14,15 +14,30 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
     private List<MenuItem> items;
     private final OnItemClickListener listener;
 
+    /**
+     * Input: ArrayList<MenuItem> items, OnItemClickListener listener
+     * Output: Void
+     * Function initializes the adapter
+     */
     public interface OnItemClickListener {
         void onItemClick(MenuItem item);
     }
 
+    /**
+     * Input: ArrayList<MenuItem> items, OnItemClickListener listener
+     * Output: Void
+     * Function initializes the adapter
+     */
     public MenuItemAdapter(ArrayList<MenuItem> items, OnItemClickListener listener) {
         this.items = items;
         this.listener = listener;
     }
 
+    /**
+     * Input: ViewGroup parent, int viewType
+     * Output: MenuItemViewHolder
+     * Function creates a new view
+     */
     @NonNull
     @Override
     public MenuItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -32,6 +47,11 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
         return new MenuItemViewHolder(view);
     }
 
+    /**
+     * Input: MenuItemViewHolder holder, int position
+     * Output: Void
+     * Function binds the data to the views
+     */
     @Override
     public void onBindViewHolder(@NonNull MenuItemViewHolder holder, int position) {
         // Get the item at the current position and bind its data to the holder's views
@@ -39,22 +59,26 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
         holder.bind(currentItem, listener);
     }
 
+    /**
+     * Input: Void
+     * Output: int
+     * Function returns the number of items in the list
+     */
     @Override
     public int getItemCount() {
         // Return the total number of items in the list
         return items.size();
     }
 
+    /**
+     * Input: List<MenuItem> items
+     * Output: Void
+     * Function updates the data in the adapter
+     */
     public void setItems(List<MenuItem> items) {
         this.items.clear();
         this.items.addAll(items);
         notifyDataSetChanged();
-    }
-
-    // Method to update the data in the adapter
-    public void updateData(List<MenuItem> newItems) {
-        this.items = newItems;
-        notifyDataSetChanged(); // Refresh the RecyclerView
     }
 
 
@@ -68,6 +92,11 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
         private final TextView tvItemPrice;
         private final ImageView ivItemImage;
 
+        /**
+         * Input: View itemView
+         * Output: Void
+         * Function initializes the views
+         */
         public MenuItemViewHolder(@NonNull View itemView) {
             super(itemView);
             // Find the views by their ID
@@ -77,6 +106,11 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
             ivItemImage = itemView.findViewById(R.id.ivFoodImage);
         }
 
+        /**
+         * Input: MenuItem item, final OnItemClickListener listener
+         * Output: Void
+         * Function binds the data to the views
+         */
         public void bind(MenuItem item, final OnItemClickListener listener) {
             tvItemName.setText(item.getName());
             tvItemDescription.setText(item.getDescription());

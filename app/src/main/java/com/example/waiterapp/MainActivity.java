@@ -31,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Input: Void
+     * Output: Void
+     * Function sets up the bottom navigation bar
+     */
     private void setupBottomNavigation() {
         bottomNavigationView.setSelectedItemId(R.id.nav_home);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {

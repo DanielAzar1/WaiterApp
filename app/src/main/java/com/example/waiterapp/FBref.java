@@ -35,5 +35,4 @@ public class FBref {
     public static ArrayList<MenuItem> startersList = new ArrayList<>();
 
     public static Map<MenuItem, Integer> cartItems = new HashMap<>();
-
 }

@@ -28,6 +28,11 @@ import java.util.ArrayList;
 public class LoginActivity extends AppCompatActivity {
     EditText userET, passET;
 
+    /**
+     * Input: Bundle savedInstanceState
+     * Output: Void
+     * Function initializes the view
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +47,11 @@ public class LoginActivity extends AppCompatActivity {
         getFoodItem(FBref.refStarters,FBref.storageRefStarters, FBref.startersList);
     }
 
+    /**
+     * Input: View view
+     * Output: Void
+     * Function logs in the user
+     */
     public void onLogin(View view) {
         FBref.refAuth.signInWithEmailAndPassword(userET.getText().toString(), passET.getText().toString())
         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -61,6 +71,11 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Input: View view
+     * Output: Void
+     * Function registers a new user
+     */
     public void getFoodItem(DatabaseReference ref, StorageReference storageRef, ArrayList<MenuItem> list) {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -91,6 +106,11 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Input: StorageReference storageRef, MenuItem item, ArrayList<MenuItem> list
+     * Output: Void
+     * Function gets the photo of a menu item
+     */
     public void getMenuItemPhoto(StorageReference storageRef, MenuItem item, ArrayList<MenuItem> list)
     {
         StorageReference refFile = storageRef.child(item.getName() + ".jpg");

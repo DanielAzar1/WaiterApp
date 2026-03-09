@@ -21,6 +21,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     private Map<MenuItem, Integer> cartItems;
     private final OnCartItemInteractionListener listener;
 
+    /**
+     * Input: Map<MenuItem, Integer> cartMap
+     * Output: Void
+     * Function Updates the relevant View with the new data
+     */
     public void updateData(Map<MenuItem, Integer> cartMap) {
         this.cartItems = cartMap;
         notifyDataSetChanged();
@@ -34,11 +39,21 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         void onDecreaseQuantityClick(MenuItem item, int position);
     }
 
+    /**
+     * Input: Map<MenuItem, Integer> cartItems, OnCartItemInteractionListener listener
+     * Output: Void
+     * Function initializes the adapter
+     */
     public CartAdapter(Map<MenuItem, Integer> cartItems, OnCartItemInteractionListener listener) {
         this.cartItems = cartItems;
         this.listener = listener;
     }
 
+    /**
+     * Input: ViewGroup parent, int viewType
+     * Output: CartViewHolder
+     * Function creates a new view
+     */
     @NonNull
     @Override
     public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -48,6 +63,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         return new CartViewHolder(view);
     }
 
+    /**
+     * Input: CartViewHolder holder, int position
+     * Output: Void
+     * Function binds the data to the views
+     */
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
         List<MenuItem> items = new ArrayList<>(cartItems.keySet());
@@ -57,11 +77,24 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.bind(currentItem, quantity, listener);
     }
 
+    /**
+     * Input: Void
+     * Output: int
+     * Function returns the number of items in the cart
+     */
     @Override
     public int getItemCount() {
-        return cartItems.size();
+        int size = 0;
+        for (Map.Entry<MenuItem, Integer> entry : cartItems.entrySet()) {
+            size += entry.getValue();
+        }
+        return size;
     }
-
+    /**
+     * Input: Void
+     * Output: double
+     * Function returns the total price of all items in the cart
+     */
     public double getTotalPrice()
     {
         double totalPrice = 0.0;
@@ -71,14 +104,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             totalPrice += item.getPrice() * quantity;
         }
         return totalPrice;
-    }
-
-    public void setItems(List<MenuItem> newItems) {
-        this.cartItems.clear();
-        for (MenuItem item : newItems) {
-            this.cartItems.put(item, 1);
-        }
-        notifyDataSetChanged(); // This is the simplest way to refresh
     }
 
     /**
@@ -93,7 +118,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         private final ImageButton MinusBtn;
         private final ImageButton PlusBtn;
 
-
+        /**
+         * Input: View itemView
+         * Output: Void
+         * Function initializes the views
+         */
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
             tvCartItemName = itemView.findViewById(R.id.tvCartItemName);
@@ -104,6 +133,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             PlusBtn = itemView.findViewById(R.id.PlusBtn);
         }
 
+        /**
+         * Input: MenuItem item, Integer amount, final OnCartItemInteractionListener listener
+         * Output: Void
+         * Function binds the data to the views
+         */
         public void bind(final MenuItem item, Integer amount, final OnCartItemInteractionListener listener) {
             tvCartItemName.setText(item.getName());
             tvCartItemPrice.setText(String.format(Locale.getDefault(), "$%.2f", item.getPrice() * amount));

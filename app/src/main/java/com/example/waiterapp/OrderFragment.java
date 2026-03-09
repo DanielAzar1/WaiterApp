@@ -45,11 +45,21 @@ public class OrderFragment extends Fragment {
         }
     }
 
+    /**
+     * Input: LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState
+     * Output: View
+     * Function creates a new view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_order, container, false);
     }
 
+    /**
+     * Input: View view, Bundle savedInstanceState
+     * Output: Void
+     * Function initializes the view
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -97,6 +107,11 @@ public class OrderFragment extends Fragment {
         price.setText(String.format("$%.2f", totalPrice));
     }
 
+    /**
+     * Input: View view
+     * Output: Void
+     * Function places the order
+     */
     public void onPlaceOrder(View view) {
         Toast.makeText(OrderFragment.this.getContext(), "Order Placed!", Toast.LENGTH_LONG).show();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm", Locale.getDefault());
@@ -120,6 +135,11 @@ public class OrderFragment extends Fragment {
             });
     }
 
+    /**
+     * Input: Map<MenuItem, Integer> m
+     * Output: Map<String, Integer>
+     * Function converts a map of MenuItem and Integer to a map of String and Integer
+     */
     public static Map<String, Integer> GetUploadableMap(Map<MenuItem, Integer> m)
     {
         Map<String, Integer> uploadableMap = new HashMap<>();

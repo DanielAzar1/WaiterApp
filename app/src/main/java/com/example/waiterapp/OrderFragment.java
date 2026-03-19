@@ -33,11 +33,12 @@ public class OrderFragment extends Fragment {
     public static class Order
     {
         public String time;
-        public int tableNum = 200; // PLACEHOLDER
+        public Integer tableNum = 200; // PLACEHOLDER
         public String waiterUID;
         public Map<String, Integer> Order;
-        public boolean status; // 0 = InProgress, 1 = Done
+        public Boolean status; // 0 = InProgress, 1 = Done
 
+        public Order() {}
         public Order(String t, Map<String, Integer> o, String u, boolean s) {
             this.time = t;
             this.Order = o;

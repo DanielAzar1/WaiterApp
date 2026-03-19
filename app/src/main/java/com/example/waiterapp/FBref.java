@@ -23,8 +23,10 @@ public class FBref {
     public static DatabaseReference refStarters = FBDB.getReference("MenuItems/Starters");
     public static DatabaseReference refMains = FBDB.getReference("MenuItems/MainCourses");
     public static DatabaseReference refOrders = FBDB.getReference("Orders/Active");
+    public static DatabaseReference refDoneOrders = FBDB.getReference("DoneOrders");
     public static DatabaseReference refManagers = FBDB.getReference("Users/Managers");
     public static DatabaseReference refWaiters = FBDB.getReference("Users/Waiters");
+    public static DatabaseReference refKitchen = FBDB.getReference("Users/Kitchen");
 
     // Storage Refrences
     public static StorageReference storageRefDesserts = storageRef.child("images/FoodItems/Desserts");
@@ -38,6 +40,7 @@ public class FBref {
     public static ArrayList<MenuItem> startersList = new ArrayList<>();
 
     public static ArrayList<User> userList = new ArrayList<>();
+    public static User KitchenUser = null;
 
     public static Map<MenuItem, Integer> cartItems = new HashMap<>();
     public static User currentUser = null;

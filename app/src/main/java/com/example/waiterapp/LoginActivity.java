@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.waiterapp.KitchenApp.KitchenMain;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -49,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         // Initialize the lists
         pullManagers();
         pullWaiters();
+        pullKitchen();
         getFoodItem(FBref.refDesserts, FBref.storageRefDesserts, FBref.dessertslist);
         getFoodItem(FBref.refMains,FBref.storageRefMains, FBref.mainsList);
         getFoodItem(FBref.refStarters,FBref.storageRefStarters, FBref.startersList);
@@ -69,6 +71,13 @@ public class LoginActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     FirebaseUser user = FBref.refAuth.getCurrentUser();
+                    if (user.getUid().equals(FBref.KitchenUser.getUID()))
+                    {
+                        FBref.currentUser = FBref.KitchenUser;
+                        Log.d("Kitchen", "Start Kitchen Activity");
+                        Intent intent = new Intent(LoginActivity.this, KitchenMain.class);
+                        startActivity(intent);
+                    }
                     for (int i = 0; i < managers.size(); i++)
                     {
                         if (user.getUid().equals(managers.get(i).getUID()))
@@ -217,6 +226,28 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(LoginActivity.this, "Error loading managers: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void pullKitchen() {
+        FBref.refKitchen.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        String name = snapshot.child("FullName").getValue(String.class);
+                        String email = snapshot.child("Email").getValue(String.class);
+                        String UID = snapshot.child("UID").getValue(String.class);
+                        String role = snapshot.child("Role").getValue(String.class);
+
+                        FBref.KitchenUser = new User(name, email, UID, role);
+                    }
+                }
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(LoginActivity.this, "Error loading managers: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();

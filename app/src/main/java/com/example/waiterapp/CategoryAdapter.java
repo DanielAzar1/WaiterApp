@@ -94,7 +94,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
          */
         void bind(String category, boolean isSelected) {
             tvCategoryName.setText(category);
-            // This triggers the state change in your drawable and color selectors
             itemView.setSelected(isSelected);
         }
     }

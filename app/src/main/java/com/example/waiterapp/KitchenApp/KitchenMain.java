@@ -62,7 +62,7 @@ public class KitchenMain extends AppCompatActivity {
                     for (com.google.firebase.database.DataSnapshot child : data.getChildren())
                     {
                         OrderFragment.Order order = new OrderFragment.Order();
-                        order.time = child.child("time").getValue(String.class);
+                        order.time = child.child("time").getValue(String.class).substring(8, 12);
                         order.Order = child.child("Order").getValue(t);
                         order.status = child.child("status").getValue(Boolean.class);
                         order.waiterUID = child.child("waiterUID").getValue(String.class);

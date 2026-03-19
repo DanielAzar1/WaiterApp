@@ -49,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
                 {
                     selected_fragment = new OrderFragment();
                 }
+                if (id == R.id.nav_history)
+                {
+                    selected_fragment = new HistoryFragment();
+                }
 
                 if (selected_fragment != null) {
                     getSupportFragmentManager().beginTransaction()

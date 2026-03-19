@@ -9,4 +9,8 @@
         android:id="@+id/nav_cart"
         android:title="הזמנה"
         android:icon="@drawable/order_bottom_nav"/>
+    <item
+        android:id="@+id/nav_history"
+        android:title="היסטוריית הזמנות"
+        android:icon="@drawable/history_bottom_nav"/>
 </menu>

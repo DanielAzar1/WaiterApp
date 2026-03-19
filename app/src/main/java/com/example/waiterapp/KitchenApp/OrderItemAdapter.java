@@ -35,7 +35,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     @Override
     public void onBindViewHolder(@NonNull OrderItemViewHolder holder, int position) {
         OrderFragment.Order currentOrder = orders.get(position);
-        holder.bind(currentOrder.time.substring(8, 12), String.valueOf(currentOrder.tableNum));
+        holder.bind(currentOrder.time, String.valueOf(currentOrder.tableNum));
         holder.itemView.setOnClickListener(v -> {
             listener.onOrderClick(currentOrder);
         });
@@ -75,5 +75,6 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
             tvTime.setText(Time);
             tvTableID.setText(tableID);
         }
+
     }
 }

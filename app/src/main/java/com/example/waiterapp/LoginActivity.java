@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -24,10 +25,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import com.example.waiterapp.User;
+import com.example.waiterapp.ManagerApp.ManagerMenu;
 
 public class LoginActivity extends AppCompatActivity {
     EditText userET, passET;
 
+    ArrayList<User> managers = new ArrayList<>();
+    ArrayList<User> waiters = new ArrayList<>();
     /**
      * Input: Bundle savedInstanceState
      * Output: Void
@@ -42,6 +47,8 @@ public class LoginActivity extends AppCompatActivity {
         passET = findViewById(R.id.passET);
 
         // Initialize the lists
+        pullManagers();
+        pullWaiters();
         getFoodItem(FBref.refDesserts, FBref.storageRefDesserts, FBref.dessertslist);
         getFoodItem(FBref.refMains,FBref.storageRefMains, FBref.mainsList);
         getFoodItem(FBref.refStarters,FBref.storageRefStarters, FBref.startersList);
@@ -53,16 +60,38 @@ public class LoginActivity extends AppCompatActivity {
      * Function logs in the user
      */
     public void onLogin(View view) {
+        for (int i = 0; i < managers.size(); i++)
+            Log.d("ManagerName" + i, managers.get(i).getName());
+
         FBref.refAuth.signInWithEmailAndPassword(userET.getText().toString(), passET.getText().toString())
         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     FirebaseUser user = FBref.refAuth.getCurrentUser();
-
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-
+                    for (int i = 0; i < managers.size(); i++)
+                    {
+                        if (user.getUid().equals(managers.get(i).getUID()))
+                        {
+                            FBref.currentUser = managers.get(i);
+                            FBref.userList = waiters;
+                            Log.d("Manager", "Start Manager Activity");
+                            Intent intent = new Intent(LoginActivity.this, ManagerMenu.class);
+                            startActivity(intent);
+                            break;
+                        }
+                    }
+                    for (int i = 0; i < waiters.size(); i++)
+                    {
+                        if (user.getUid().equals(waiters.get(i).getUID()))
+                        {
+                            FBref.currentUser = waiters.get(i);
+                            Log.d("Waiter", "Start Waiter Activity");
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            break;
+                        }
+                    }
                 } else {
                     Toast.makeText(LoginActivity.this, "Authentication failed.",
                             Toast.LENGTH_SHORT).show();
@@ -136,6 +165,61 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(LoginActivity.this, "Download Failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+    }
+
+    public void pullManagers() {
+        FBref.refManagers.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                managers.clear();
+
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        String name = snapshot.child("FullName").getValue(String.class);
+                        String email = snapshot.child("email").getValue(String.class);
+                        String UID = snapshot.child("UID").getValue(String.class);
+                        String role = snapshot.child("role").getValue(String.class);
+
+                        User manager = new User(name, email, UID, role);
+                        if (manager != null) {
+                            managers.add(manager);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(LoginActivity.this, "Error loading managers: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void pullWaiters() {
+        FBref.refWaiters.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                waiters.clear();
+
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        String name = snapshot.child("FullName").getValue(String.class);
+                        String email = snapshot.child("Email").getValue(String.class);
+                        String UID = snapshot.child("UID").getValue(String.class);
+                        String role = snapshot.child("Role").getValue(String.class);
+
+                        User waiter = new User(name, email, UID, role);
+                        waiters.add(waiter);
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(LoginActivity.this, "Error loading managers: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

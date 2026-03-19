@@ -27,7 +27,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
      * Function Updates the relevant View with the new data
      */
     public void updateData(Map<MenuItem, Integer> cartMap) {
-        this.cartItems = cartMap;
+        this.cartItems.putAll(cartMap);
         notifyDataSetChanged();
     }
 
@@ -84,11 +84,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
      */
     @Override
     public int getItemCount() {
-        int size = 0;
-        for (Map.Entry<MenuItem, Integer> entry : cartItems.entrySet()) {
-            size += entry.getValue();
-        }
-        return size;
+        return cartItems.size();
     }
     /**
      * Input: Void

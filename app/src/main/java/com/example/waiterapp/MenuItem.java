@@ -110,4 +110,20 @@ public class MenuItem {
     public void setImage(Bitmap bitmap) {
         this.image = bitmap;
     }
+
+    public void uploadDish(String type)
+    {
+        switch (type)
+        {
+            case "Starters":
+                FBref.refStarters.child(Category).child(Name).setValue(this);
+                break;
+            case "MainCourses":
+                FBref.refMains.child(Category).child(Name).setValue(this);
+                break;
+            case "Desserts":
+                FBref.refDesserts.child(Category).child(Name).setValue(this);
+                break;
+        }
+    }
 }

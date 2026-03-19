@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_menu_fragment"
+    android:id="@+id/fragment_manager_menu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".MenuFragment">
+    tools:context=".ManagerApp.ManagerMenuFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/btmNav"
+        android:layout_above="@id/btmNav2"
         android:background="#F5F5F5"
         android:orientation="vertical">
 
-
         <TextView
-            android:id="@+id/tvCategoriesHeader2"
+            android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="16dp"
@@ -29,7 +28,7 @@
             android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvCategories2"
+            android:id="@+id/rvManagerCategories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
@@ -40,9 +39,8 @@
             tools:itemCount="5"
             tools:listitem="@layout/category_item_layout" />
 
-
         <TextView
-            android:id="@+id/tvMenuHeader2"
+            android:id="@+id/textView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="16dp"
@@ -52,10 +50,10 @@
             android:text="Menu"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvMenuItems2"
+            android:id="@+id/rvManagerMenuItems"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -63,7 +61,7 @@
             android:padding="8dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="8"
-            tools:listitem="@layout/menu_item_layout" />
+            tools:listitem="@layout/manager_menu_item_layout" />
 
     </LinearLayout>
 

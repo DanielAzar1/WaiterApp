@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_menu"
+        android:title="נהל תפריט"
+        android:icon="@drawable/menu_bottom_nav" />
+
+    <item
+        android:id="@+id/nav_user"
+        android:title="נהל משתמשים"
+        android:icon="@drawable/user" />
+
+    <item
+        android:id="@+id/nav_plus"
+        android:title="הוסף מנה"
+        android:icon="@drawable/plus" />
+
+    <item
+        android:id="@+id/nav_add_waiter"
+        android:title="הוסף מלצר"
+        android:icon="@drawable/addwaiter" />
+</menu>

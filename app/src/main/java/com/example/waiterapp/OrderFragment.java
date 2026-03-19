@@ -34,14 +34,15 @@ public class OrderFragment extends Fragment {
     {
         public String time;
         public int tableNum = 200; // PLACEHOLDER
-        public String waiterUID = "1234"; // PLACEHOLDER
+        public String waiterUID;
         public Map<String, Integer> Order;
         public boolean status; // 0 = InProgress, 1 = Done
 
-        public Order(String t, Map<String, Integer> o, boolean s) {
+        public Order(String t, Map<String, Integer> o, String u, boolean s) {
             this.time = t;
             this.Order = o;
             this.status = s;
+            this.waiterUID = u;
         }
     }
 
@@ -119,7 +120,7 @@ public class OrderFragment extends Fragment {
 
         Log.d("Current time:", currentTime);
 
-        Order newOrder = new Order(currentTime, GetUploadableMap(FBref.cartItems), false);
+        Order newOrder = new Order(currentTime, GetUploadableMap(FBref.cartItems), FBref.currentUser.getUID(), false);
 
         FBref.refOrders.child(newOrder.waiterUID).child(currentTime).setValue(newOrder)
             .addOnSuccessListener(aVoid -> {

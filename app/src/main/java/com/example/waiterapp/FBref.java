@@ -10,6 +10,7 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import com.example.waiterapp.User;
 
 public class FBref {
     public static FirebaseAuth refAuth = FirebaseAuth.getInstance();
@@ -22,6 +23,8 @@ public class FBref {
     public static DatabaseReference refStarters = FBDB.getReference("MenuItems/Starters");
     public static DatabaseReference refMains = FBDB.getReference("MenuItems/MainCourses");
     public static DatabaseReference refOrders = FBDB.getReference("Orders/Active");
+    public static DatabaseReference refManagers = FBDB.getReference("Users/Managers");
+    public static DatabaseReference refWaiters = FBDB.getReference("Users/Waiters");
 
     // Storage Refrences
     public static StorageReference storageRefDesserts = storageRef.child("images/FoodItems/Desserts");
@@ -34,5 +37,8 @@ public class FBref {
     public static ArrayList<MenuItem> mainsList = new ArrayList<>();
     public static ArrayList<MenuItem> startersList = new ArrayList<>();
 
+    public static ArrayList<User> userList = new ArrayList<>();
+
     public static Map<MenuItem, Integer> cartItems = new HashMap<>();
+    public static User currentUser = null;
 }

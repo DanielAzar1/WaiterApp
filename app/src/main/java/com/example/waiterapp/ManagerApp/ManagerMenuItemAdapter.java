@@ -24,11 +24,21 @@ public class ManagerMenuItemAdapter extends RecyclerView.Adapter<ManagerMenuItem
         void onDeleteClick(MenuItem item);
     }
 
+    /**
+     * Input: OnItemClickListener listener, List<MenuItem> items
+     * Output: Void
+     * Function initializes the adapter
+     */
     public ManagerMenuItemAdapter(OnItemClickListener listener, List<MenuItem> items) {
         this.listener = listener;
         this.items = items;
     }
 
+    /**
+     * Input: ViewGroup parent, int viewType
+     * Output: MenuItemViewHolder
+     * Function creates a new view
+     */
     @NonNull
     @Override
     public MenuItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -36,11 +46,21 @@ public class ManagerMenuItemAdapter extends RecyclerView.Adapter<ManagerMenuItem
         return new MenuItemViewHolder(view);
     }
 
+    /**
+     * Input: MenuItemViewHolder holder, int position
+     * Output: Void
+     * Function binds the data to the views
+     */
     @Override
     public void onBindViewHolder(@NonNull MenuItemViewHolder holder, int position) {
         holder.bind(items.get(position), listener);
     }
 
+    /**
+     * Input: Void
+     * Output: int
+     * Function returns the number of items in the list
+     */
     @Override
     public int getItemCount() {
         return items != null ? items.size() : 0;
@@ -64,6 +84,11 @@ public class ManagerMenuItemAdapter extends RecyclerView.Adapter<ManagerMenuItem
         private final ImageView ivItemImage;
         private final ImageButton ibDelete;
 
+        /**
+         * Input: View itemView
+         * Output: Void
+         * Function initializes the views
+         */
         public MenuItemViewHolder(@NonNull View itemView) {
             super(itemView);
             tvItemName = itemView.findViewById(R.id.tvFoodName);
@@ -73,6 +98,11 @@ public class ManagerMenuItemAdapter extends RecyclerView.Adapter<ManagerMenuItem
             ibDelete = itemView.findViewById(R.id.btnDelete);
         }
 
+        /**
+         * Input: MenuItem item, final OnItemClickListener listener
+         * Output: Void
+         * Function binds the data to the views
+         */
         public void bind(MenuItem item, final OnItemClickListener listener) {
             tvItemName.setText(item.getName());
             tvItemDescription.setText(item.getDescription());

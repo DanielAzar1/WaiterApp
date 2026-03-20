@@ -85,6 +85,11 @@ public class ManagerUserItemAdapter extends RecyclerView.Adapter<ManagerUserItem
         private final TextView tvUserDescription;
         private final ImageButton ibDelete;
 
+        /**
+         * Input: View itemView
+         * Output: Void
+         * Function initializes the views
+         */
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
             this.tvUserName = itemView.findViewById(R.id.tvUserName);
@@ -92,6 +97,11 @@ public class ManagerUserItemAdapter extends RecyclerView.Adapter<ManagerUserItem
             this.ibDelete = itemView.findViewById(R.id.btnDelete2);
         }
 
+        /**
+         * Input: User user, final OnUserClickListener listener
+         * Output: Void
+         * Function binds the data to the views
+         */
         public void bind(User user, final ManagerUserItemAdapter.OnUserClickListener listener) {
             tvUserName.setText(user.getName());
             String description = "Email: " + user.getEmail() + "\n" + "Role: " + user.getRole();

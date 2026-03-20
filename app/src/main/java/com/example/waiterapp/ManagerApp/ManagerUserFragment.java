@@ -35,6 +35,11 @@ public class ManagerUserFragment extends Fragment implements ManagerUserItemAdap
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * Input: LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState
+     * Output: View
+     * Function creates a new view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -60,6 +65,10 @@ public class ManagerUserFragment extends Fragment implements ManagerUserItemAdap
         adb.setIcon(R.drawable.trashcan);
     }
 
+    /**
+     * Input: User user
+     * Output: Void
+     * Function handles the delete button click*/
     @Override
     public void onDeleteClick(User user) {
         adb.setMessage("Are you sure you want to remove " + user.getName() + "?");

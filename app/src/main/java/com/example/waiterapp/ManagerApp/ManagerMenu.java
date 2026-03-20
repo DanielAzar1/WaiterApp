@@ -17,6 +17,11 @@ import com.google.android.material.navigation.NavigationBarView;
 public class ManagerMenu extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
 
+    /**
+     * Input: Bundle savedInstanceState
+     * Output: Void
+     * Function initializes the view
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

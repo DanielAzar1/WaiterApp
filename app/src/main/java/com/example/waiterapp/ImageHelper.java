@@ -33,6 +33,11 @@ public class ImageHelper {
         }
     }
 
+    /**
+     * Input: Uri uri, String path
+     * Output: Void
+     * Function uploads an image to firebase storage
+     */
     public static void uploadImageToFirebase(Uri uri, String path)
     {
         StorageReference ref = FBref.storageRef.child(path);

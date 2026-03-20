@@ -178,6 +178,11 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Input: Void
+     * Output: Void
+     * Function pulls the managers
+     */
     public void pullManagers() {
         FBref.refManagers.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -206,6 +211,11 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Input: Void
+     * Output: Void
+     * Function pulls the waiters
+     */
     public void pullWaiters() {
         FBref.refWaiters.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -233,6 +243,11 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Input: Void
+     * Output: Void
+     * Function pulls the kitchen user
+     */
     private void pullKitchen() {
         FBref.refKitchen.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

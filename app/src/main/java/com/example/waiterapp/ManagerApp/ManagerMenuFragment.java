@@ -40,11 +40,21 @@ public class ManagerMenuFragment extends Fragment implements CategoryAdapter.OnC
         // Required empty public constructor
     }
 
+    /**
+     * Input: Bundle savedInstanceState
+     * Output: Void
+     * Function initializes the view
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * Input: LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState
+     * Output: View
+     * Function creates a new view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -80,6 +90,11 @@ public class ManagerMenuFragment extends Fragment implements CategoryAdapter.OnC
         adb.setIcon(R.drawable.trashcan);
     }
 
+    /**
+     * Input: String category, int position
+     * Output: Void
+     * Function handles the category click
+     */
     @Override
     public void onCategoryClick(String category, int position) {
         currCategory = category;
@@ -96,6 +111,11 @@ public class ManagerMenuFragment extends Fragment implements CategoryAdapter.OnC
         }
     }
 
+    /**
+     * Input: MenuItem item
+     * Output: Void
+     * Function handles the delete button click
+     */
     @Override
     public void onDeleteClick(MenuItem item) {
         adb.setMessage("Are you sure you want to remove " + item.getName() + "?");

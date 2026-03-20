@@ -38,12 +38,22 @@ public class ManagerAddUserFragment extends Fragment {
         // Required empty public constructor
     }
 
+    /**
+     * Input: Bundle savedInstanceState
+     * Output: Void
+     * Function initializes the view
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
 
+    /**
+     * Input: LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState
+     * Output: View
+     * Function creates a new view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -68,6 +78,11 @@ public class ManagerAddUserFragment extends Fragment {
 
     }
 
+    /**
+     * Input: View view
+     * Output: Void
+     * Function handles the add waiter button click
+     */
     public void onAddWaiter(View view)
     {
         String FullName = ETname.getText().toString();

@@ -32,7 +32,9 @@ public class OrderFragment extends Fragment {
 
     public static class Order
     {
+        public String fullTime;
         public String time;
+        public String deadline;
         public Integer tableNum = 200; // PLACEHOLDER
         public String waiterUID;
         public Map<String, Integer> Order;

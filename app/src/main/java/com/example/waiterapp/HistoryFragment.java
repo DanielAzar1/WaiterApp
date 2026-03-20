@@ -31,16 +31,30 @@ public class HistoryFragment extends Fragment{
     OrderFragment.Order currentSelectedOrder;
     int currentSelectedIndex;
 
+    /**
+     * Input: Bundle savedInstanceState
+     * Output: Void
+     * Function initializes the view
+     */
     public HistoryFragment() {
         // Required empty public constructor
     }
 
-
+    /**
+     * Input: Bundle savedInstanceState
+     * Output: Void
+     * Function initializes the view
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * Input: LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState
+     * Output: View
+     * Function creates a new view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_history, container, false);
@@ -97,6 +111,11 @@ public class HistoryFragment extends Fragment{
         });
     }
 
+    /**
+     * Input: OrderFragment.Order order
+     * Output: Void
+     * Function shows the order details
+     */
     private void onViewOrder(OrderFragment.Order order)
     {
         this.currentSelectedOrder = order;

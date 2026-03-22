@@ -36,7 +36,6 @@ public class KitchenMain extends AppCompatActivity {
 
         activeAdapter = new OrderItemAdapter(activeOrders, v->onViewOrder(v, adb1));
         doneAdapter = new OrderItemAdapter(doneOrders, v->onViewOrder(v, adb2));
-        doneAdapter.setBackgroundColor(Color.GREEN);
         rvActive.setAdapter(activeAdapter);
         activeAdapter.startTimer();
         rvDone.setAdapter(doneAdapter);

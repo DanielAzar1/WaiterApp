@@ -22,7 +22,6 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 {
     private final ArrayList<OrderFragment.Order> orders;
     private final OrderItemAdapter.OnOrderClickListener listener;
-    private Integer backgroundColor = null;
 
     public OrderItemAdapter(ArrayList<OrderFragment.Order> orders, OnOrderClickListener listener) {
         this.orders = orders;
@@ -59,11 +58,6 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         holder.itemView.setOnClickListener(v -> {
             listener.onOrderClick(currentOrder);
         });
-    }
-
-    public void setBackgroundColor(Integer color) {
-        this.backgroundColor = color;
-        notifyDataSetChanged();
     }
 
 

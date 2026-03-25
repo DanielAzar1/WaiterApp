@@ -80,11 +80,29 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                notifyDataSetChanged();
-
+                sortByDeadline();
                 handler.postDelayed(this, 60000);
             }
         }, 60000);
+    }
+
+    /**
+     * Input: Void
+     * Output: Void
+     * Function sorts the orders by deadline
+     */
+    public void sortByDeadline() {
+        java.util.Collections.sort(orders, new java.util.Comparator<OrderFragment.Order>() {
+            @Override
+            public int compare(OrderFragment.Order o1, OrderFragment.Order o2) {
+                if (o1.deadline == null && o2.deadline == null) return 0;
+                if (o1.deadline == null) return 1;
+                if (o2.deadline == null) return -1;
+
+                return o1.deadline.compareTo(o2.deadline);
+            }
+        });
+        notifyDataSetChanged();
     }
 
     public static class OrderItemViewHolder extends RecyclerView.ViewHolder {

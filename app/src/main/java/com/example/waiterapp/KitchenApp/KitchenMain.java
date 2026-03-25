@@ -51,33 +51,36 @@ public class KitchenMain extends AppCompatActivity {
         FBref.refOrders.addValueEventListener(new com.google.firebase.database.ValueEventListener() {
             @Override
             public void onDataChange(@NonNull com.google.firebase.database.DataSnapshot snapshot) {
-                activeOrders.clear();
                 com.google.firebase.database.GenericTypeIndicator<Map<String, Integer>> t =
                         new com.google.firebase.database.GenericTypeIndicator<Map<String, Integer>>() {};
                 for (com.google.firebase.database.DataSnapshot data : snapshot.getChildren()) {
-                    for (com.google.firebase.database.DataSnapshot child : data.getChildren())
-                    {
-                        OrderFragment.Order order = new OrderFragment.Order();
-                        order.fullTime = child.child("time").getValue(String.class);
-                        order.time = order.fullTime.substring(8, 12);
-                        order.Order = child.child("Order").getValue(t);
-                        order.status = child.child("status").getValue(Boolean.class);
-                        order.waiterUID = child.child("waiterUID").getValue(String.class);
-                        order.tableNum = child.child("tableNum").getValue(Integer.class);
-                        order.TimeToLive = child.child("TimeToLive").getValue(Integer.class);
+                    int count = 0;
+                    for (com.google.firebase.database.DataSnapshot child : data.getChildren()) {
+                            count++;
+                            if (activeOrders.size() < count) {
+                                OrderFragment.Order order = new OrderFragment.Order();
+                                order.fullTime = child.child("time").getValue(String.class);
+                                order.time = order.fullTime.substring(8, 12);
+                                order.Order = child.child("Order").getValue(t);
+                                order.status = child.child("status").getValue(Boolean.class);
+                                order.waiterUID = child.child("waiterUID").getValue(String.class);
+                                order.tableNum = child.child("tableNum").getValue(Integer.class);
+                                order.TimeToLive = child.child("TimeToLive").getValue(Integer.class);
 
-                        java.util.Calendar cal = java.util.Calendar.getInstance();
-                        cal.add(java.util.Calendar.MINUTE, order.TimeToLive);
-                        Log.d("SetTimer", "Set Time To Live For: " + order.TimeToLive);
-                        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyyMMddHHmm", java.util.Locale.getDefault());
-                        order.deadline = sdf.format(cal.getTime());
+                                java.util.Calendar cal = java.util.Calendar.getInstance();
+                                cal.add(java.util.Calendar.MINUTE, order.TimeToLive);
+                                Log.d("SetTimer", "Set Time To Live For: " + order.TimeToLive);
+                                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyyMMddHHmm", java.util.Locale.getDefault());
+                                order.deadline = sdf.format(cal.getTime());
 
-                        Log.d("OrderData", order.time + " " + order.Order + " " + order.status + " " + order.waiterUID);
+                                Log.d("OrderData", order.time + " " + order.Order + " " + order.status + " " + order.waiterUID);
 
-                        activeOrders.add(order);
-                    }
+                                activeOrders.add(order);
+                            }
+                        }
+                    activeAdapter.sortByDeadline();
+                    activeAdapter.notifyDataSetChanged();
                 }
-                activeAdapter.notifyDataSetChanged();
             }
             @Override
             public void onCancelled(@NonNull com.google.firebase.database.DatabaseError error) {

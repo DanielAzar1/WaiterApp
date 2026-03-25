@@ -35,17 +35,19 @@ public class OrderFragment extends Fragment {
         public String fullTime;
         public String time;
         public String deadline;
+        public int TimeToLive;
         public Integer tableNum = 200; // PLACEHOLDER
         public String waiterUID;
         public Map<String, Integer> Order;
         public Boolean status; // 0 = InProgress, 1 = Done
 
         public Order() {}
-        public Order(String t, Map<String, Integer> o, String u, boolean s) {
+        public Order(String t, Map<String, Integer> o, String u, boolean s, int ttl) {
             this.time = t;
             this.Order = o;
             this.status = s;
             this.waiterUID = u;
+            this.TimeToLive = ttl;
         }
     }
 
@@ -121,9 +123,16 @@ public class OrderFragment extends Fragment {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm", Locale.getDefault());
         String currentTime = sdf.format(new Date());
 
-        Log.d("Current time:", currentTime);
+        int maxPrepTime = 0;
+        for (MenuItem item : FBref.cartItems.keySet()) {
+            Log.d("ItemTTL", item.getName() + ", " + item.getTimeToLive());
+            if (item.getTimeToLive() > maxPrepTime) {
+                maxPrepTime = item.getTimeToLive();
+            }
+        }
+        Log.d("MaxTTL", String.valueOf(maxPrepTime));
 
-        Order newOrder = new Order(currentTime, GetUploadableMap(FBref.cartItems), FBref.currentUser.getUID(), false);
+        Order newOrder = new Order(currentTime, GetUploadableMap(FBref.cartItems), FBref.currentUser.getUID(), false, maxPrepTime);
 
         FBref.refOrders.child(newOrder.waiterUID).child(currentTime).setValue(newOrder)
             .addOnSuccessListener(aVoid -> {

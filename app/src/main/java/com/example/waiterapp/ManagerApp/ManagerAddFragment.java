@@ -44,7 +44,7 @@ import java.util.Arrays;
 
 public class ManagerAddFragment extends Fragment {
     Spinner categorySpinner, typeSpinner;
-    EditText nameET, descriptionET, priceET;
+    EditText nameET, descriptionET, priceET, ttlEt;
     ImageView iv;
     Button btnAddDish,btnChoosePhoto;
     MenuItem item;
@@ -96,6 +96,7 @@ public class ManagerAddFragment extends Fragment {
         descriptionET = view.findViewById(R.id.editTextText3);
         iv = view.findViewById(R.id.imageView);
         priceET = view.findViewById(R.id.editTextNumberDecimal);
+        ttlEt = view.findViewById(R.id.editTextNumberSigned);
 
         btnChoosePhoto = view.findViewById(R.id.button2);
         btnAddDish = view.findViewById(R.id.button3);
@@ -170,6 +171,7 @@ public class ManagerAddFragment extends Fragment {
         String name = nameET.getText().toString();
         String description = descriptionET.getText().toString();
         String price = priceET.getText().toString();
+        int ttl = Integer.parseInt(ttlEt.getText().toString());
 
         if (name.isEmpty() || description.isEmpty() || price.isEmpty())
         {
@@ -194,7 +196,7 @@ public class ManagerAddFragment extends Fragment {
         else
         {
             float priceFloat = Float.parseFloat(price);
-            MenuItem item = new MenuItem(name, description, priceFloat, category);
+            MenuItem item = new MenuItem(name, description, priceFloat, category, ttl);
             item.setImage(photo);
 
             item.uploadDish(type);

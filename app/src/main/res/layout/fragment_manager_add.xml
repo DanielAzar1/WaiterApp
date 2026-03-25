@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Enter DIsh Name"
+            android:hint="Enter Dish Name"
             android:inputType="text" />
 
         <Space
@@ -75,11 +75,29 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
-        <ImageView
-            android:id="@+id/imageView"
+        <EditText
+            android:id="@+id/editTextNumberSigned"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:ems="10"
+            android:hint="Enter Average Time To Make Dish:"
+            android:inputType="numberSigned" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="centerCrop"
+            android:background="#EEEEEE"
             tools:src="@tools:sample/avatars" />
 
         <Space

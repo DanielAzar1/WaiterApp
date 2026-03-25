@@ -64,9 +64,11 @@ public class KitchenMain extends AppCompatActivity {
                         order.status = child.child("status").getValue(Boolean.class);
                         order.waiterUID = child.child("waiterUID").getValue(String.class);
                         order.tableNum = child.child("tableNum").getValue(Integer.class);
+                        order.TimeToLive = child.child("TimeToLive").getValue(Integer.class);
 
                         java.util.Calendar cal = java.util.Calendar.getInstance();
-                        cal.add(java.util.Calendar.MINUTE, 15);
+                        cal.add(java.util.Calendar.MINUTE, order.TimeToLive);
+                        Log.d("SetTimer", "Set Time To Live For: " + order.TimeToLive);
                         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyyMMddHHmm", java.util.Locale.getDefault());
                         order.deadline = sdf.format(cal.getTime());
 

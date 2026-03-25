@@ -8,9 +8,10 @@ public class MenuItem {
     private double Price;
     private Bitmap image;
     private String Category;
+    private int TimeToLive;
 
     public MenuItem() {
-        // Default constructor required for calls to DataSnapshot.getValue(MenuItem.class)
+        // Default constructor
     }
 
     /**
@@ -18,11 +19,12 @@ public class MenuItem {
      * Output: Void
      * Function initializes the menu item
      */
-    public MenuItem(String Name, String Description, double Price, String Category) {
+    public MenuItem(String Name, String Description, double Price, String Category, int TimeToLive) {
         this.Name = Name;
         this.Description = Description;
         this.Price = Price;
         this.Category = Category;
+        this.TimeToLive = TimeToLive;
     }
 
     /**
@@ -110,6 +112,21 @@ public class MenuItem {
     public void setImage(Bitmap bitmap) {
         this.image = bitmap;
     }
+
+    /**
+     * Input: Void
+     * Output: int
+     * Function returns the ttl of the menu item
+     */
+    public void setTimeToLive(int TimeToLive) { this.TimeToLive = TimeToLive; }
+
+    /**
+     * Input: Void
+     * Output: int
+     * Function returns the ttl of the menu item
+     */
+    public int getTimeToLive() { return TimeToLive; }
+
 
     public void uploadDish(String type)
     {

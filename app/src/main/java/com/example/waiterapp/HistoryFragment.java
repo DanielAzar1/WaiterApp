@@ -95,6 +95,8 @@ public class HistoryFragment extends Fragment{
                             order.status = child.child("status").getValue(Boolean.class);
                             order.waiterUID = child.child("waiterUID").getValue(String.class);
                             order.tableNum = child.child("tableNum").getValue(Integer.class);
+                            order.deadline = child.child("deadline").getValue(String.class);
+                            order.TimeToLive = child.child("TimeToLive").getValue(Integer.class);
 
                             Log.d("OrderData", order.time + " " + order.Order + " " + order.status + " " + order.waiterUID);
 

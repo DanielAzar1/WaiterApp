@@ -28,6 +28,11 @@ public class KitchenMain extends AppCompatActivity {
     OrderFragment.Order currentSelectedOrder;
     int currentSelectedIndex;
 
+    /**
+     * Input: Bundle savedInstanceState
+     * Output: Void
+     * Function initializes the views, adapters and listeners and gets data from the db and starts the timer
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

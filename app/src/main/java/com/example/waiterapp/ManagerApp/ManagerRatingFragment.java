@@ -36,6 +36,11 @@ public class ManagerRatingFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * Input: LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState
+     * Output: View
+     * Function creates a new view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_manager_rating, container, false);
@@ -60,6 +65,11 @@ public class ManagerRatingFragment extends Fragment {
 
     }
 
+    /**
+     * Input: View view
+     * Output: Void
+     * Function refreshes the data when pressing on the button
+     */
     public void onRefresh(View view)
     {
         rating.setText(String.format("%.2f", FBref.rating));

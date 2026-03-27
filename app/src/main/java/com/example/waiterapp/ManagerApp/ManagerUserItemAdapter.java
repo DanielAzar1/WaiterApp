@@ -24,12 +24,22 @@ public class ManagerUserItemAdapter extends RecyclerView.Adapter<ManagerUserItem
     public interface OnUserClickListener {
         void onDeleteClick(User user);
     }
+    /**
+     * Input: OnUserClickListener listener, List<User> items
+     * Output: Void
+     * Function initializes the adapter
+     */
     public ManagerUserItemAdapter(OnUserClickListener listener, List<User> items)
     {
         this.listener = listener;
         this.items = items;
     }
 
+    /**
+     * Input: ViewGroup parent, int viewType
+     * Output: ManagerUserItemAdapter.UserViewHolder
+     * Function creates a new view
+     */
     @NonNull
     @Override
     public ManagerUserItemAdapter.UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -37,6 +47,11 @@ public class ManagerUserItemAdapter extends RecyclerView.Adapter<ManagerUserItem
         return new ManagerUserItemAdapter.UserViewHolder(view);
     }
 
+    /**
+     * Input: ManagerUserItemAdapter.UserViewHolder holder, int position
+     * Output: Void
+     * Function binds the data to the views
+     */
     @Override
     public void onBindViewHolder(@NonNull ManagerUserItemAdapter.UserViewHolder holder, int position) {
         holder.bind(items.get(position), listener);

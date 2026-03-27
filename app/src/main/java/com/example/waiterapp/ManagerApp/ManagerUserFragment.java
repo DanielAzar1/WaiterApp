@@ -91,6 +91,11 @@ public class ManagerUserFragment extends Fragment implements ManagerUserItemAdap
         ad.show();
     }
 
+    /**
+     * Input: Void
+     * Output: Void
+     * Function updates the adapter when the fragment is resumed
+     */
     @Override
     public void onResume() {
         super.onResume();

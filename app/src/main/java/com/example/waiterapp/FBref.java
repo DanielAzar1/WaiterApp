@@ -40,12 +40,15 @@ public class FBref {
     public static ArrayList<MenuItem> mainsList = new ArrayList<>();
     public static ArrayList<MenuItem> startersList = new ArrayList<>();
 
+    //User Related
     public static ArrayList<User> userList = new ArrayList<>();
     public static User KitchenUser = null;
 
+    //Cart Related
     public static Map<MenuItem, Integer> cartItems = new HashMap<>();
     public static User currentUser = null;
 
+    //Rating Related
     public static double rating = 0;
     public static ArrayList<String> comments = new ArrayList<>();
 }

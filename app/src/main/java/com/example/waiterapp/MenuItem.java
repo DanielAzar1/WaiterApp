@@ -128,6 +128,11 @@ public class MenuItem {
     public int getTimeToLive() { return TimeToLive; }
 
 
+    /**
+     * Input: String type
+     * Output: Void
+     * Function uploads the dish to the database
+     */
     public void uploadDish(String type)
     {
         switch (type)

@@ -18,6 +18,12 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 public class ImageHelper {
+
+    /**
+     * Input: Context context, Uri uri
+     * Output: Bitmap
+     * Function gets a bitmap from a uri
+     */
     public static Bitmap getBitmapFromUri(Context context, Uri uri)
     {
         try

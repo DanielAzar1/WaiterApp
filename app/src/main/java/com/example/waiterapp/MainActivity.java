@@ -2,6 +2,7 @@ package com.example.waiterapp;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -67,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        IntentFilter filter = new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(new wifiReciever(), filter);
     }
 
     /**

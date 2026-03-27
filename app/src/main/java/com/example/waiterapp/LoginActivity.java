@@ -1,8 +1,10 @@
 package com.example.waiterapp;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -34,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
 
     ArrayList<User> managers = new ArrayList<>();
     ArrayList<User> waiters = new ArrayList<>();
+    public static wifiReciever reciever;
     /**
      * Input: Bundle savedInstanceState
      * Output: Void
@@ -54,6 +57,13 @@ public class LoginActivity extends AppCompatActivity {
         getFoodItem(FBref.refDesserts, FBref.storageRefDesserts, FBref.dessertslist);
         getFoodItem(FBref.refMains,FBref.storageRefMains, FBref.mainsList);
         getFoodItem(FBref.refStarters,FBref.storageRefStarters, FBref.startersList);
+
+        if (reciever == null)
+            reciever = new wifiReciever();
+
+        IntentFilter filter = new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(reciever, filter);
+        Log.d("connectionManager", "Listener Started");
     }
 
     /**
@@ -75,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                     {
                         FBref.currentUser = FBref.KitchenUser;
                         Log.d("Kitchen", "Start Kitchen Activity");
+                        LoginActivity.this.unregisterReceiver(reciever);
                         Intent intent = new Intent(LoginActivity.this, KitchenMain.class);
                         startActivity(intent);
                     }
@@ -85,6 +96,7 @@ public class LoginActivity extends AppCompatActivity {
                             FBref.currentUser = managers.get(i);
                             FBref.userList = waiters;
                             Log.d("Manager", "Start Manager Activity");
+                            LoginActivity.this.unregisterReceiver(reciever);
                             Intent intent = new Intent(LoginActivity.this, ManagerMenu.class);
                             startActivity(intent);
                             break;
@@ -96,6 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                         {
                             FBref.currentUser = waiters.get(i);
                             Log.d("Waiter", "Start Waiter Activity");
+                            LoginActivity.this.unregisterReceiver(reciever);
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                             break;

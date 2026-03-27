@@ -1,5 +1,6 @@
 package com.example.waiterapp.ManagerApp;
 
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import com.example.waiterapp.MenuFragment;
 import com.example.waiterapp.OrderFragment;
 import com.example.waiterapp.R;
+import com.example.waiterapp.wifiReciever;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -34,6 +36,9 @@ public class ManagerMenu extends AppCompatActivity {
         setupBottomNavigation();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragContainer2, new ManagerMenuFragment()).commit();
+
+        IntentFilter filter = new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(new wifiReciever(), filter);
 
     }
 

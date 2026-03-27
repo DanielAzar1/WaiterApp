@@ -28,6 +28,11 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         this.listener = listener;
     }
 
+    /**
+     * Input: ViewGroup parent, int viewType
+     * Output: OrderItemViewHolder
+     * Function creates a new view
+     */
     @NonNull
     @Override
     public OrderItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -36,6 +41,11 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         return new OrderItemViewHolder(view);
     }
 
+    /**
+     * Input: OrderItemViewHolder holder, int position
+     * Output: Void
+     * Function binds the data to the views
+     */
     @Override
     public void onBindViewHolder(@NonNull OrderItemViewHolder holder, int position) {
         OrderFragment.Order currentOrder = orders.get(position);

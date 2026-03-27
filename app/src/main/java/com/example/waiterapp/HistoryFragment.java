@@ -129,6 +129,8 @@ public class HistoryFragment extends Fragment{
 
             fullOrder += itemName + ": " + quantity + "\n";;
         }
+        if (order.request != null)
+            fullOrder += '\n' + order.request;
         adb.setMessage(fullOrder);
         adb.show();
     }

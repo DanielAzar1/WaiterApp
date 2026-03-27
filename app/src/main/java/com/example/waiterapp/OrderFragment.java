@@ -1,8 +1,11 @@
 package com.example.waiterapp;
 
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +34,8 @@ public class OrderFragment extends Fragment {
     private CartAdapter adapter;
     private double totalPrice;
     private TextView price;
+    private String request;
+    private int tableNumber;
 
     public static class Order
     {
@@ -40,6 +47,7 @@ public class OrderFragment extends Fragment {
         public String waiterUID;
         public Map<String, Integer> Order;
         public Boolean status; // 0 = InProgress, 1 = Done
+        public String request = "";
 
         public Order() {}
         public Order(String t, Map<String, Integer> o, String u, boolean s, int ttl) {
@@ -118,8 +126,11 @@ public class OrderFragment extends Fragment {
      * Output: Void
      * Function places the order
      */
-    public void onPlaceOrder(View view) {
-        Toast.makeText(OrderFragment.this.getContext(), "Order Placed!", Toast.LENGTH_LONG).show();
+    public void placeOrder() {
+        if (!isAdded() || getContext() == null) {
+            return;
+        }
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm", Locale.getDefault());
         String currentTime = sdf.format(new Date());
 
@@ -133,10 +144,13 @@ public class OrderFragment extends Fragment {
         Log.d("MaxTTL", String.valueOf(maxPrepTime));
 
         Order newOrder = new Order(currentTime, GetUploadableMap(FBref.cartItems), FBref.currentUser.getUID(), false, maxPrepTime);
+        newOrder.request = request;
+        newOrder.tableNum = tableNumber;
 
         FBref.refOrders.child(newOrder.waiterUID).child(currentTime).setValue(newOrder)
             .addOnSuccessListener(aVoid -> {
-                Toast.makeText(getContext(), "Order Sent!", Toast.LENGTH_LONG).show();
+                if (isAdded() && getContext() != null)
+                    Toast.makeText(getContext(), "Order Sent!", Toast.LENGTH_LONG).show();
 
                 FBref.cartItems.clear();
                 adapter.updateData(FBref.cartItems);
@@ -144,7 +158,9 @@ public class OrderFragment extends Fragment {
                 price.setText("$0.00");
             })
             .addOnFailureListener(e -> {
-                Toast.makeText(getContext(), "Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                if (isAdded() && getContext() != null)
+                    Toast.makeText(requireContext(), "Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+
             });
     }
 
@@ -162,5 +178,30 @@ public class OrderFragment extends Fragment {
         });
 
         return uploadableMap;
+    }
+
+    public void onPlaceOrder(View view)
+    {
+        AlertDialog.Builder adb = new AlertDialog.Builder(this.getContext());
+        LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.order_alert_dialog, null);
+        EditText etSpecial = layout.findViewById(R.id.etSpecial);
+        EditText etTable = layout.findViewById(R.id.etTable);
+
+
+        adb.setView(layout);
+        adb.setTitle("Special Requests");
+        adb.setPositiveButton("Submit Order", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                request = etSpecial.getText().toString();
+                tableNumber = Integer.parseInt(etTable.getText().toString());
+                Log.d("Special Request", request);
+                placeOrder();
+            }
+        });
+
+        adb.setNegativeButton("Cancel", null);
+        adb.show();
     }
 }

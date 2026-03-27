@@ -1,6 +1,7 @@
 package com.example.waiterapp.KitchenApp;
 
 import android.content.DialogInterface;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.waiterapp.FBref;
 import com.example.waiterapp.OrderFragment;
 import com.example.waiterapp.R;
+import com.example.waiterapp.wifiReciever;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -40,6 +42,9 @@ public class KitchenMain extends AppCompatActivity {
         activeAdapter.startTimer();
         rvDone.setAdapter(doneAdapter);
 
+        IntentFilter filter = new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(new wifiReciever(), filter);
+
         adb1 = new AlertDialog.Builder(this);
         adb2 = new AlertDialog.Builder(this);
         adb1.setTitle("Done Order Details");
@@ -66,6 +71,7 @@ public class KitchenMain extends AppCompatActivity {
                                 order.waiterUID = child.child("waiterUID").getValue(String.class);
                                 order.tableNum = child.child("tableNum").getValue(Integer.class);
                                 order.TimeToLive = child.child("TimeToLive").getValue(Integer.class);
+                                order.request = child.child("request").getValue(String.class);
 
                                 java.util.Calendar cal = java.util.Calendar.getInstance();
                                 cal.add(java.util.Calendar.MINUTE, order.TimeToLive);
@@ -106,6 +112,8 @@ public class KitchenMain extends AppCompatActivity {
 
             fullOrder += itemName + ": " + quantity + "\n";
         }
+        if (order.request != null)
+            fullOrder += '\n' + order.request;
         adb.setMessage(fullOrder);
         adb.show();
     }

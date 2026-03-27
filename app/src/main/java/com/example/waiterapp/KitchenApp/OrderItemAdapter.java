@@ -71,10 +71,16 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     }
 
 
+    /**
+     * Input: Void
+     * Output: int
+     * Function returns the number of items in the list
+     */
     @Override
     public int getItemCount() {
         return orders.size();
     }
+
 
     public interface OnOrderClickListener {
         void onOrderClick(OrderFragment.Order order);

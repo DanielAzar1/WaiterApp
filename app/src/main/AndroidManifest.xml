@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,6 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WaiterApp">
+        <activity
+            android:name=".ManagerApp.ManagerRating"
+            android:exported="false" />
         <activity
             android:name=".KitchenApp.KitchenMain"
             android:exported="false" />
@@ -33,7 +37,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".wifiReciever"/>
+        <receiver android:name=".wifiReciever" />
     </application>
 
 </manifest>

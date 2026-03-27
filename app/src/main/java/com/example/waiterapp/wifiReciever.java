@@ -10,6 +10,11 @@ import android.util.Log;
 public class wifiReciever extends BroadcastReceiver {
     AlertDialog.Builder adb;
 
+    /**
+     * Input: Context context, Intent intent
+     * Output: Void
+     * Function handles the wifi connection changes and notifies the user
+     */
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d("ConnectionManager", "Connectivity changed");
@@ -23,7 +28,7 @@ public class wifiReciever extends BroadcastReceiver {
         if (!isConnected) {
             adb = new AlertDialog.Builder(context);
             adb.setTitle("No Internet Connection");
-            adb.setMessage("You are not connected to WiFi or Cellular Data!\nConnect to receive and send data.");
+            adb.setMessage("You Are Not Connected To WiFi Or Cellular Data!\nConnect To A Network And Relaunch The App.");
             adb.setNegativeButton("OK", null);
             adb.show();
         }

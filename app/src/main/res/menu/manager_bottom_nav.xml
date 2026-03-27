@@ -19,4 +19,9 @@
         android:id="@+id/nav_add_waiter"
         android:title="הוסף מלצר"
         android:icon="@drawable/addwaiter" />
+
+    <item
+        android:id="@+id/nav_get_rating"
+        android:title="ראה סיכום דירוגים"
+        android:icon="@drawable/star_svgrepo_com" />
 </menu>

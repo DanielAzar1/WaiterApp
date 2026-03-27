@@ -180,6 +180,11 @@ public class OrderFragment extends Fragment {
         return uploadableMap;
     }
 
+    /**
+     * Input: View view
+     * Output: Void
+     * Function puts up a dialog to ask for special requests and table number
+     */
     public void onPlaceOrder(View view)
     {
         AlertDialog.Builder adb = new AlertDialog.Builder(this.getContext());

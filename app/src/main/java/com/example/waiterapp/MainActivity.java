@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
@@ -48,16 +49,14 @@ public class MainActivity extends AppCompatActivity {
 
         initializeNotif();
 
-        FBref.refDoneOrders.limitToLast(1).addValueEventListener(new com.google.firebase.database.ValueEventListener() {
-
+        FBref.refDoneOrders.child(FBref.currentUser.getUID()).limitToLast(1).addValueEventListener(new com.google.firebase.database.ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    for (DataSnapshot lastOrder : snapshot.getChildren()) {
-                        for (DataSnapshot order : lastOrder.getChildren()) {
-                            String tableNum = String.valueOf(order.child("tableNum").getValue());
-                            showOrderNotification("Order for Table " + tableNum + " is ready!");
-                        }
+                    for (DataSnapshot order : snapshot.getChildren()) {
+                        String tableNum = String.valueOf(order.child("tableNum").getValue());
+                        showOrderNotification("Order for Table " + tableNum + " is ready!");
+
                     }
                 }
             }

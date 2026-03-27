@@ -1,6 +1,7 @@
 package com.example.waiterapp;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,23 +14,38 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.waiterapp.KitchenApp.OrderItemAdapter;
-import com.example.waiterapp.ManagerApp.ManagerUserItemAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 
 import java.util.ArrayList;
 import java.util.Map;
 
 public class HistoryFragment extends Fragment{
+    public static class DoneOrder
+    {
+        OrderFragment.Order order;
+        Integer rating = 0;
+        String comment = "";
+        Boolean isRated = false; // Default
+    }
+
     OrderItemAdapter adapter;
     RecyclerView rvHistory;
     TextView tvHistory;
     ArrayList<OrderFragment.Order> orders = new ArrayList<>();
+    ArrayList<DoneOrder> doneOrders = new ArrayList<>();
 
     AlertDialog.Builder adb;
-    OrderFragment.Order currentSelectedOrder;
+    DoneOrder currentSelectedOrder;
     int currentSelectedIndex;
+    int rating;
+    String comment;
 
     /**
      * Input: Bundle savedInstanceState
@@ -101,6 +117,10 @@ public class HistoryFragment extends Fragment{
                             Log.d("OrderData", order.time + " " + order.Order + " " + order.status + " " + order.waiterUID);
 
                             orders.add(order);
+                            DoneOrder doneOrder = new DoneOrder();
+                            doneOrder.order = order;
+                            doneOrders.add(doneOrder);
+                            getRating(doneOrder);
                         }
                         adapter.notifyDataSetChanged();
                     }
@@ -120,7 +140,7 @@ public class HistoryFragment extends Fragment{
      */
     private void onViewOrder(OrderFragment.Order order)
     {
-        this.currentSelectedOrder = order;
+        this.currentSelectedOrder = doneOrders.get(orders.indexOf(order));
         this.currentSelectedIndex = orders.indexOf(order);
         String fullOrder = "";
         for (Map.Entry<String, Integer> entry : order.Order.entrySet()) {
@@ -131,7 +151,102 @@ public class HistoryFragment extends Fragment{
         }
         if (order.request != null)
             fullOrder += '\n' + order.request;
+
+        if (currentSelectedOrder.isRated)
+        {
+            fullOrder += '\n' + "Rating: " + currentSelectedOrder.rating + "\n" + "Comment: " + currentSelectedOrder.comment;
+            adb.setPositiveButton("OK", null);
+        }
+        else
+            adb.setPositiveButton("Rate", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    rate(currentSelectedOrder);
+                }
+            });
         adb.setMessage(fullOrder);
         adb.show();
+    }
+
+    /**
+     * Input: DoneOrder order
+     * Output: Void
+     * Function gets the rating from the database
+     */
+    private void getRating(DoneOrder order)
+    {
+        FBref.refRatings.child(String.valueOf(order.order.tableNum))
+                .child(order.order.waiterUID)
+                .child(order.order.time).addValueEventListener(new com.google.firebase.database.ValueEventListener()
+        {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    order.rating = snapshot.child("Rating").getValue(Integer.class);
+                    order.comment = snapshot.child("Comment").getValue(String.class);
+                    order.isRated = snapshot.child("isRated").getValue(Boolean.class);
+                }
+                else
+                    order.isRated = false;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("Couldn't get rating", order.order.waiterUID);
+            }
+        });
+    }
+
+    /**
+     * Input: DoneOrder order
+     * Output: Void
+     * Function Creates a alertDialog for rating
+     */
+    private void rate(DoneOrder order)
+    {
+        androidx.appcompat.app.AlertDialog.Builder adb2 = new androidx.appcompat.app.AlertDialog.Builder(this.getContext());
+        LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.rate_alert_dialog, null);
+        EditText etRate = layout.findViewById(R.id.etRate);
+        EditText etComment = layout.findViewById(R.id.etComment);
+
+
+        adb2.setView(layout);
+        adb2.setTitle("Special Requests");
+        adb2.setPositiveButton("Submit Order", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                rating = Integer.valueOf(etRate.getText().toString());
+                if (rating > 5 || rating < 1)
+                    Toast.makeText(getContext(), "Rating must be between 1 and 5", Toast.LENGTH_SHORT).show();
+                else
+                {
+                    comment = etComment.getText().toString();
+                    Log.d("Special Request", comment);
+                    uploadRating(order);
+                }
+            }
+        });
+
+        adb2.setNegativeButton("Cancel", null);
+        adb2.show();
+    }
+
+    /**
+     * Input: DoneOrder order
+     * Output: Void
+     * Function uploads the rating to the database
+     */
+    private void uploadRating(DoneOrder order)
+    {
+        com.google.firebase.database.DatabaseReference ref = FBref.refRatings
+                .child(String.valueOf(order.order.tableNum))
+                .child(order.order.waiterUID)
+                .child(order.order.time);
+
+        ref.child("Rating").setValue(rating);
+        ref.child("Comment").setValue(comment);
+        ref.child("isRated").setValue(true);
     }
 }

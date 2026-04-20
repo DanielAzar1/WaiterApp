@@ -16,6 +16,12 @@ import com.example.waiterapp.R;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * @author Daniel Azar
+ * @version 1.0
+ *
+ * Class is an adapter for the Manager to view the menu
+ */
 public class ManagerMenuItemAdapter extends RecyclerView.Adapter<ManagerMenuItemAdapter.MenuItemViewHolder>{
     private List<MenuItem> items;
     private final OnItemClickListener listener;
@@ -25,9 +31,10 @@ public class ManagerMenuItemAdapter extends RecyclerView.Adapter<ManagerMenuItem
     }
 
     /**
-     * Input: OnItemClickListener listener, List<MenuItem> items
-     * Output: Void
      * Function initializes the adapter
+     *
+     * @param listener The listener for the item click events
+     * @param items The list of items to be displayed
      */
     public ManagerMenuItemAdapter(OnItemClickListener listener, List<MenuItem> items) {
         this.listener = listener;
@@ -35,9 +42,10 @@ public class ManagerMenuItemAdapter extends RecyclerView.Adapter<ManagerMenuItem
     }
 
     /**
-     * Input: ViewGroup parent, int viewType
-     * Output: MenuItemViewHolder
      * Function creates a new view
+     *
+     * @param parent The parent view group
+     * @param viewType The view type
      */
     @NonNull
     @Override
@@ -47,9 +55,10 @@ public class ManagerMenuItemAdapter extends RecyclerView.Adapter<ManagerMenuItem
     }
 
     /**
-     * Input: MenuItemViewHolder holder, int position
-     * Output: Void
      * Function binds the data to the views
+     *
+     * @param holder The view holder
+     * @param position The position of the item in the list
      */
     @Override
     public void onBindViewHolder(@NonNull MenuItemViewHolder holder, int position) {
@@ -57,8 +66,6 @@ public class ManagerMenuItemAdapter extends RecyclerView.Adapter<ManagerMenuItem
     }
 
     /**
-     * Input: Void
-     * Output: int
      * Function returns the number of items in the list
      */
     @Override
@@ -67,9 +74,9 @@ public class ManagerMenuItemAdapter extends RecyclerView.Adapter<ManagerMenuItem
     }
 
     /**
-     * Input: List<MenuItem> items
-     * Output: Void
      * Function updates the data in the adapter
+     *
+     * @param items The new list of items to be displayed
      */
     public void setItems(List<MenuItem> items) {
         this.items.clear();
@@ -77,6 +84,12 @@ public class ManagerMenuItemAdapter extends RecyclerView.Adapter<ManagerMenuItem
         notifyDataSetChanged();
     }
 
+    /**
+     * @author Daniel Azar
+     * @version 1.0
+     *
+     * Class is a view holder for the Manager to view the menu
+     */
     public static class MenuItemViewHolder extends RecyclerView.ViewHolder {
         private final TextView tvItemName;
         private final TextView tvItemDescription;
@@ -85,9 +98,9 @@ public class ManagerMenuItemAdapter extends RecyclerView.Adapter<ManagerMenuItem
         private final ImageButton ibDelete;
 
         /**
-         * Input: View itemView
-         * Output: Void
          * Function initializes the views
+         *
+         * @param itemView The view for the item
          */
         public MenuItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -99,9 +112,10 @@ public class ManagerMenuItemAdapter extends RecyclerView.Adapter<ManagerMenuItem
         }
 
         /**
-         * Input: MenuItem item, final OnItemClickListener listener
-         * Output: Void
          * Function binds the data to the views
+         *
+         * @param item The item to be displayed
+         * @param listener  The listener for the item click events
          */
         public void bind(MenuItem item, final OnItemClickListener listener) {
             tvItemName.setText(item.getName());

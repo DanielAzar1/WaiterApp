@@ -7,13 +7,18 @@ import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.util.Log;
 
+/**
+ * Class handles the wifi connection changes and notifies the user
+ *
+ * @author Daniel Azar*/
 public class wifiReciever extends BroadcastReceiver {
     AlertDialog.Builder adb;
 
     /**
-     * Input: Context context, Intent intent
-     * Output: Void
      * Function handles the wifi connection changes and notifies the user
+     *
+     * @param context the context it was called from
+     * @param intent the intent that was received from the system
      */
     @Override
     public void onReceive(Context context, Intent intent) {

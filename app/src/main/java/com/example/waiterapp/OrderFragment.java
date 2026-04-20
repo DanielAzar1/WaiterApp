@@ -29,6 +29,10 @@ import java.util.Map;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Class is a fragment that displays the order
+ *
+ * @author Daniel Azar*/
 public class OrderFragment extends Fragment {
     private RecyclerView rvOrder;
     private CartAdapter adapter;
@@ -37,6 +41,9 @@ public class OrderFragment extends Fragment {
     private String request;
     private int tableNumber;
 
+    /**
+     * Class that represents an order
+     * */
     public static class Order
     {
         public String fullTime;
@@ -60,9 +67,12 @@ public class OrderFragment extends Fragment {
     }
 
     /**
-     * Input: LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState
-     * Output: View
-     * Function creates a new view
+     * Called to have the fragment instantiate its user interface view.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate any views in the fragment.
+     * @param container If non-null, this is the parent view that the fragment's UI should be attached to.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state.
+     * @return Return the View for the fragment's UI, or null.
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,9 +80,11 @@ public class OrderFragment extends Fragment {
     }
 
     /**
-     * Input: View view, Bundle savedInstanceState
-     * Output: Void
-     * Function initializes the view
+     * Called immediately after onCreateView(LayoutInflater, ViewGroup, Bundle) has returned.
+     * Initializes all views.
+     *
+     * @param view The View returned by onCreateView(LayoutInflater, ViewGroup, Bundle).
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state.
      */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -122,8 +134,6 @@ public class OrderFragment extends Fragment {
     }
 
     /**
-     * Input: View view
-     * Output: Void
      * Function places the order
      */
     public void placeOrder() {
@@ -165,9 +175,10 @@ public class OrderFragment extends Fragment {
     }
 
     /**
-     * Input: Map<MenuItem, Integer> m
-     * Output: Map<String, Integer>
      * Function converts a map of MenuItem and Integer to a map of String and Integer
+     *
+     * @param m the map to convert
+     * @return uploadable map
      */
     public static Map<String, Integer> GetUploadableMap(Map<MenuItem, Integer> m)
     {
@@ -181,9 +192,9 @@ public class OrderFragment extends Fragment {
     }
 
     /**
-     * Input: View view
-     * Output: Void
      * Function puts up a dialog to ask for special requests and table number
+     *
+     * @param view the view clicked
      */
     public void onPlaceOrder(View view)
     {

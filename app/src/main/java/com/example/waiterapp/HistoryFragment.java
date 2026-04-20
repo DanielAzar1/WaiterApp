@@ -26,6 +26,12 @@ import com.google.firebase.database.DatabaseError;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * Class is a fragment that displays the history of orders for the relevant user
+ * and allows the user to rate orders.
+ *
+ * @author Daniel Azar
+ * */
 public class HistoryFragment extends Fragment{
     public static class DoneOrder
     {
@@ -48,18 +54,17 @@ public class HistoryFragment extends Fragment{
     String comment;
 
     /**
-     * Input: Bundle savedInstanceState
-     * Output: Void
-     * Function initializes the view
+     * Empty Constructor
      */
     public HistoryFragment() {
         // Required empty public constructor
     }
 
     /**
-     * Input: Bundle savedInstanceState
-     * Output: Void
      * Function initializes the view
+     *
+     * @param savedInstanceState if the fragment is being re-created from a previous state,
+     *                           this is the state.
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,9 +72,12 @@ public class HistoryFragment extends Fragment{
     }
 
     /**
-     * Input: LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState
-     * Output: View
-     * Function creates a new view
+     * Called to have the fragment instantiate its user interface view.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate any views in the fragment.
+     * @param container If non-null, this is the parent view that the fragment's UI should be attached to.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state.
+     * @return Return the View for the fragment's UI, or null.
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -77,9 +85,11 @@ public class HistoryFragment extends Fragment{
     }
 
     /**
-     * Input: View view, Bundle savedInstanceState
-     * Output: Void
-     * Function initializes the view
+     * Called immediately after onCreateView(LayoutInflater, ViewGroup, Bundle) has returned.
+     * Initializes the RecyclerView, adapter, and the delete confirmation dialog builder.
+     *
+     * @param view The View returned by onCreateView(LayoutInflater, ViewGroup, Bundle).
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state.
      */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -134,9 +144,9 @@ public class HistoryFragment extends Fragment{
     }
 
     /**
-     * Input: OrderFragment.Order order
-     * Output: Void
      * Function shows the order details
+     *
+     * @param order the order to be displayed
      */
     private void onViewOrder(OrderFragment.Order order)
     {
@@ -169,9 +179,9 @@ public class HistoryFragment extends Fragment{
     }
 
     /**
-     * Input: DoneOrder order
-     * Output: Void
      * Function gets the rating from the database
+     *
+     * @param order the order to get the rating for
      */
     private void getRating(DoneOrder order)
     {
@@ -199,9 +209,9 @@ public class HistoryFragment extends Fragment{
     }
 
     /**
-     * Input: DoneOrder order
-     * Output: Void
      * Function Creates a alertDialog for rating
+     *
+     * @param order the order to rate
      */
     private void rate(DoneOrder order)
     {
@@ -234,9 +244,9 @@ public class HistoryFragment extends Fragment{
     }
 
     /**
-     * Input: DoneOrder order
-     * Output: Void
      * Function uploads the rating to the database
+     *
+     * @param order the order to upload its rating
      */
     private void uploadRating(DoneOrder order)
     {

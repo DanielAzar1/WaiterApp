@@ -28,6 +28,10 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Class is a fragment that displays the menu
+ *
+ * @author Daniel Azar*/
 public class MenuFragment extends Fragment implements CategoryAdapter.OnCategoryClickListener, MenuItemAdapter.OnItemClickListener{
     RecyclerView rvCategories;
     RecyclerView rvMenuItems;
@@ -41,9 +45,10 @@ public class MenuFragment extends Fragment implements CategoryAdapter.OnCategory
     }
 
     /**
-     * Input: Bundle savedInstanceState
-     * Output: Void
      * Function initializes the view
+     *
+     * @param savedInstanceState if the fragment is being re-created from a previous state,
+     *                           this is the state.
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,9 +56,12 @@ public class MenuFragment extends Fragment implements CategoryAdapter.OnCategory
     }
 
     /**
-     * Input: LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState
-     * Output: View
-     * Function creates a new view
+     * Called to have the fragment instantiate its user interface view.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate any views in the fragment.
+     * @param container If non-null, this is the parent view that the fragment's UI should be attached to.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state.
+     * @return Return the View for the fragment's UI, or null.
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,9 +70,11 @@ public class MenuFragment extends Fragment implements CategoryAdapter.OnCategory
     }
 
     /**
-     * Input: View view, Bundle savedInstanceState
-     * Output: Void
-     * Function initializes the view
+     * Called immediately after onCreateView(LayoutInflater, ViewGroup, Bundle) has returned.
+     * Initializes all views.
+     *
+     * @param view The View returned by onCreateView(LayoutInflater, ViewGroup, Bundle).
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state.
      */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -87,9 +97,10 @@ public class MenuFragment extends Fragment implements CategoryAdapter.OnCategory
     }
 
     /**
-     * Input: String category, int position
-     * Output: Void
      * Function handles the category click
+     *
+     * @param category the category that was clicked
+     * @param position the position of the category in the list
      */
     @Override
     public void onCategoryClick(String category, int position) {
@@ -107,9 +118,9 @@ public class MenuFragment extends Fragment implements CategoryAdapter.OnCategory
     }
 
     /**
-     * Input: MenuItem item
-     * Output: Void
      * Function adds an item to the cart
+     *
+     * @param item the item to clicked
      */
     @Override
     public void onItemClick(MenuItem item) {

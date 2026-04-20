@@ -42,6 +42,12 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * @author Daniel Azar
+ * @version 1.0
+ *
+ * Fragment for the Manager to add a new dish
+ */
 public class ManagerAddFragment extends Fragment {
     Spinner categorySpinner, typeSpinner;
     EditText nameET, descriptionET, priceET, ttlEt;
@@ -61,20 +67,38 @@ public class ManagerAddFragment extends Fragment {
     final String[] categories= {"Dairy", "Meat", "Vegan", "Vegetarian"};
 
 
+    /**
+     * Empty Constructor
+     */
     public ManagerAddFragment() {
         // Required empty public constructor
     }
 
+    /**
+     * Function creates a new instance of the fragment
+     *
+     * @param savedInstanceState If the fragment is being re-created from
+     *                           a previous saved state, this is the state.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
 
+
     /**
-     * Input: LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState
-     * Output: View
      * Function creates a new view
+     *
+     * @param inflater           The LayoutInflater object that can be used to inflate
+     *                           any views in the fragment,
+     * @param container          If non-null, this is the parent view that the fragment's
+     *                           UI should be attached to.  The fragment should not add the view itself,
+     *                           but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     *                           from a previous saved state as given here.
+     *
+     * @return new view for the fragment UI
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -82,9 +106,11 @@ public class ManagerAddFragment extends Fragment {
     }
 
     /**
-     * Input: View view, Bundle savedInstanceState
-     * Output: Void
-     * Function initializes the view
+     * Function initializes the views, sets up the adapters and listeners
+     *
+     * @param view The View returned by onCreateView(LayoutInflater, ViewGroup, Bundle)
+     *
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
      */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -124,6 +150,15 @@ public class ManagerAddFragment extends Fragment {
         }
     }
 
+    /**
+     * Function handles the result of the permission request
+     *
+     * @param requestCode  The request code passed in {@link #requestPermissions(String[], int)}.
+     * @param permissions  The requested permissions. Never null.
+     * @param grantResults The grant results for the corresponding permissions
+     *                     which is either {@link android.content.pm.PackageManager#PERMISSION_GRANTED}
+     *                     or {@link android.content.pm.PackageManager#PERMISSION_DENIED}. Never null.
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -132,8 +167,8 @@ public class ManagerAddFragment extends Fragment {
 
     /**
      * onClickFunction for the choose photo button, sends a request to access the gallery
-     * input: View view
-     * output: none
+     *
+     * @param view The view that was clicked
      * */
     public void onChoosePhoto(View view) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -144,8 +179,13 @@ public class ManagerAddFragment extends Fragment {
 
     /**
      * Function Handles The data that returns from the request
-     * input: int requestCode, int resultCode, Intent Data
-     * output: none
+     *
+     * @param requestCode The integer request code originally supplied to startActivityForResult(),
+     *                     allowing you to identify who this result came from.
+     *
+     * @param resultCode The integer result code returned by the child activity.
+     *
+     * @param data An Intent, which can return result data to the caller.
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -161,8 +201,8 @@ public class ManagerAddFragment extends Fragment {
 
     /**
      * Parses the input and Adds a new dish to The database and List, OnClick method for add dish button
-     * Input: View view
-     * Output: none
+     *
+     * @param view The view that was clicked
      * */
     public void onAddDish(View view) {
         String category = categorySpinner.getSelectedItem().toString();
@@ -211,8 +251,8 @@ public class ManagerAddFragment extends Fragment {
 
     /**
      * Helper function for onAddDish that adds the Photo to the storage and the item to the list
-     * Input: String type
-     * Output: none
+     *
+     * @param type The type of the dish
      * */
     private void uploadImage(String type)
     {

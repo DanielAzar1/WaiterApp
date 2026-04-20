@@ -31,16 +31,24 @@ import java.util.ArrayList;
 import com.example.waiterapp.User;
 import com.example.waiterapp.ManagerApp.ManagerMenu;
 
+
+/**
+ * Class is the main activity for the app, handles login
+ *
+ * @author Daniel Azar
+ * */
 public class LoginActivity extends AppCompatActivity {
     EditText userET, passET;
 
     ArrayList<User> managers = new ArrayList<>();
     ArrayList<User> waiters = new ArrayList<>();
     public static wifiReciever reciever;
+
     /**
-     * Input: Bundle savedInstanceState
-     * Output: Void
      * Function initializes the view
+     *
+     * @param savedInstanceState if the activity is being re-initialized with an instance,
+     *                           this is that instance.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +75,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Input: View view
-     * Output: Void
      * Function logs in the user
+     *
+     * @param view the view of the button
      */
     public void onLogin(View view) {
         for (int i = 0; i < managers.size(); i++)
@@ -123,9 +131,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Input: View view
-     * Output: Void
-     * Function registers a new user
+     * Function gets food item from the database
+     *
+     * @param ref the db reference to pull data from
+     * @param storageRef the db reference to pull images from
+     * @param list the list to add the items to
      */
     public void getFoodItem(DatabaseReference ref, StorageReference storageRef, ArrayList<MenuItem> list) {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -158,9 +168,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Input: StorageReference storageRef, MenuItem item, ArrayList<MenuItem> list
-     * Output: Void
      * Function gets the photo of a menu item
+     *
+     * @param storageRef the db reference to pull images from
+     * @param item the relevant item
+     * @param list (Doesn't get Used, REMOVE)
      */
     public void getMenuItemPhoto(StorageReference storageRef, MenuItem item, ArrayList<MenuItem> list)
     {
@@ -192,8 +204,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Input: Void
-     * Output: Void
      * Function pulls the managers
      */
     public void pullManagers() {
@@ -225,8 +235,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Input: Void
-     * Output: Void
      * Function pulls the waiters
      */
     public void pullWaiters() {
@@ -257,8 +265,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Input: Void
-     * Output: Void
      * Function pulls the kitchen user
      */
     private void pullKitchen() {

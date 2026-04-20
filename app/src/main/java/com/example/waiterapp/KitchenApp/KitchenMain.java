@@ -19,6 +19,12 @@ import com.example.waiterapp.wifiReciever;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * @author  Daniel Azar
+ * @version 1.0
+ *
+ * This class is the main activity for the kitchen app.
+ */
 public class KitchenMain extends AppCompatActivity {
     RecyclerView rvActive, rvDone;
     OrderItemAdapter activeAdapter, doneAdapter;
@@ -28,10 +34,11 @@ public class KitchenMain extends AppCompatActivity {
     OrderFragment.Order currentSelectedOrder;
     int currentSelectedIndex;
 
+
     /**
-     * Input: Bundle savedInstanceState
-     * Output: Void
-     * Function initializes the views, adapters and listeners and gets data from the db and starts the timer
+     * Function initializes the views and sets up the adapters
+     *
+     * @param savedInstanceState The saved instance state
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,9 +109,10 @@ public class KitchenMain extends AppCompatActivity {
     }
 
     /**
-     * Input: OrderFragment.Order order, AlertDialog.Builder adb
-     * Output: Void
-     * Function shows the order details
+     * Function shows the order details in an alert dialog when clicked
+     *
+     * @param order The order to be viewed
+     * @param adb   The alert dialog builder
      */
     public void onViewOrder(OrderFragment.Order order, AlertDialog.Builder adb)
     {
@@ -122,11 +130,11 @@ public class KitchenMain extends AppCompatActivity {
         adb.setMessage(fullOrder);
         adb.show();
     }
-
     /**
-     * Input: DialogInterface dialog, int which
-     * Output: Void
-     * Function marks the order as done and updates the database
+     * Function marks the order as done and removes it from the active orders list
+     *
+     * @param dialog The alert dialog
+     * @param which  The button that was clicked
      */
     public void onMarkDone(DialogInterface dialog, int which)
     {

@@ -9,24 +9,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Class is the adapter for the menu items
+ *
+ * @author Daniel Azar
+ * */
 public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuItemViewHolder> {
 
     private List<MenuItem> items;
     private final OnItemClickListener listener;
 
     /**
-     * Input: ArrayList<MenuItem> items, OnItemClickListener listener
-     * Output: Void
-     * Function initializes the adapter
-     */
+     * Interface for handling item clicks
+     * */
     public interface OnItemClickListener {
         void onItemClick(MenuItem item);
     }
 
     /**
-     * Input: ArrayList<MenuItem> items, OnItemClickListener listener
-     * Output: Void
      * Function initializes the adapter
+     *
+     * @param items the list of items to display
+     * @param listener the listener to handle item clicks
      */
     public MenuItemAdapter(ArrayList<MenuItem> items, OnItemClickListener listener) {
         this.items = items;
@@ -34,9 +38,11 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
     }
 
     /**
-     * Input: ViewGroup parent, int viewType
-     * Output: MenuItemViewHolder
      * Function creates a new view
+     *
+     * @param parent the parent view
+     * @param viewType the view type
+     * @return the new view
      */
     @NonNull
     @Override
@@ -48,9 +54,9 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
     }
 
     /**
-     * Input: MenuItemViewHolder holder, int position
-     * Output: Void
      * Function binds the data to the views
+     * @param holder the view holder
+     * @param position the position of the item
      */
     @Override
     public void onBindViewHolder(@NonNull MenuItemViewHolder holder, int position) {
@@ -60,9 +66,8 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
     }
 
     /**
-     * Input: Void
-     * Output: int
      * Function returns the number of items in the list
+     * @return the number of items in the list
      */
     @Override
     public int getItemCount() {
@@ -71,9 +76,9 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
     }
 
     /**
-     * Input: List<MenuItem> items
-     * Output: Void
      * Function updates the data in the adapter
+     *
+     * @param items new list
      */
     public void setItems(List<MenuItem> items) {
         this.items.clear();
@@ -93,9 +98,9 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
         private final ImageView ivItemImage;
 
         /**
-         * Input: View itemView
-         * Output: Void
          * Function initializes the views
+         *
+         * @param itemView the view to initialize
          */
         public MenuItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -107,9 +112,10 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
         }
 
         /**
-         * Input: MenuItem item, final OnItemClickListener listener
-         * Output: Void
          * Function binds the data to the views
+         *
+         * @param item the item
+         * @param listener the listener
          */
         public void bind(MenuItem item, final OnItemClickListener listener) {
             tvItemName.setText(item.getName());

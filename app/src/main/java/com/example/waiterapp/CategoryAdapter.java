@@ -8,21 +8,36 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
+/**
+ * Adapter class for managing and displaying food categories in a RecyclerView.
+ *
+ * @author Daniel Azar
+ * @version 1.0
+ */
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
 
-    // Interface to send click events back to the Activity
+    /**
+     * Interface definition for a callback to be invoked when a category is clicked.
+     */
     public interface OnCategoryClickListener {
+        /**
+         * Called when a category item has been clicked.
+         *
+         * @param category The name of the category that was clicked.
+         * @param position The position of the item in the adapter.
+         */
         void onCategoryClick(String category, int position);
     }
 
     private final ArrayList<String> categories;
     private final OnCategoryClickListener listener;
-    private int selectedPosition = 0; // Keep track of the selected item
+    private int selectedPosition = 0;
 
     /**
-     * Input: ArrayList<String> categories, OnCategoryClickListener listener
-     * Output: Void
-     * Function initializes the adapter
+     * Constructs a new CategoryAdapter.
+     *
+     * @param categories The list of category names to display.
+     * @param listener   The listener to handle click events.
      */
     public CategoryAdapter(ArrayList<String> categories, OnCategoryClickListener listener) {
         this.categories = categories;
@@ -30,9 +45,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     }
 
     /**
-     * Input: ViewGroup parent, int viewType
-     * Output: CategoryViewHolder
-     * Function creates a new view
+     * Called when RecyclerView needs a new CategoryViewHolder of the given type to represent an item.
+     *
+     * @param parent   The ViewGroup into which the new View will be added.
+     * @param viewType The view type of the new View.
+     * @return A new CategoryViewHolder that holds the inflated layout.
      */
     @NonNull
     @Override
@@ -43,9 +60,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     }
 
     /**
-     * Input: CategoryViewHolder holder, int position
-     * Output: Void
-     * Function binds the data to the views
+     * Called by RecyclerView to display the data at the specified position.
+     * This method also sets up the click listener to handle item selection and UI updates.
+     *
+     * @param holder   The ViewHolder which should be updated.
+     * @param position The position of the item within the adapter's data set.
      */
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
@@ -74,13 +93,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         return categories.size();
     }
 
+    /**
+     * ViewHolder class for category items.
+     * Holds references to the UI components for each category row.
+     */
     public static class CategoryViewHolder extends RecyclerView.ViewHolder {
         TextView tvCategoryName;
 
         /**
-         * Input: View itemView
-         * Output: Void
-         * Function initializes the views
+         * Constructs a new CategoryViewHolder.
+         *
+         * @param itemView The view representing a single category item row.
          */
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -88,9 +111,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         }
 
         /**
-         * Input: String category, boolean isSelected
-         * Output: Void
-         * Function binds the data to the views
+         * Binds the category data to the views and updates the selection state.
+         *
+         * @param category   The category name to display.
+         * @param isSelected True if this category is currently selected, false otherwise.
          */
         void bind(String category, boolean isSelected) {
             tvCategoryName.setText(category);

@@ -2,6 +2,11 @@ package com.example.waiterapp;
 
 import android.graphics.Bitmap;
 
+/**
+ * Class is the class that represents a menu item
+ *
+ * @author Daniel Azar
+ * */
 public class MenuItem {
     private String Name;
     private String Description;
@@ -10,14 +15,21 @@ public class MenuItem {
     private String Category;
     private int TimeToLive;
 
+    /**
+     * Empty Constructor
+     * */
     public MenuItem() {
         // Default constructor
     }
 
     /**
-     * Input: String Name, String Description, double Price, String Category
-     * Output: Void
      * Function initializes the menu item
+     *
+     * @param Name the name of the menu item
+     * @param Description the description of the menu item
+     * @param Price the price of the menu item
+     * @param Category the category of the menu item
+     * @param TimeToLive the time to live of the menu item
      */
     public MenuItem(String Name, String Description, double Price, String Category, int TimeToLive) {
         this.Name = Name;
@@ -28,110 +40,98 @@ public class MenuItem {
     }
 
     /**
-     * Input: Void
-     * Output: String
      * Function returns the name of the menu item
+     * @return name
      */
     public String getName() {
         return Name;
     }
 
     /**
-     * Input: String name
-     * Output: Void
      * Function sets the name of the menu item
+     * @param name the name of the menu item
      */
     public void setName(String name) {
         this.Name = name;
     }
 
     /**
-     * Input: Void
-     * Output: String
      * Function returns the description of the menu item
+     * @return description
      */
     public String getDescription() {
         return Description;
     }
 
     /**
-     * Input: String description
-     * Output: Void
      * Function sets the description of the menu item
+     * @param description the description of the menu item
      */
     public void setDescription(String description) {
         this.Description = description;
     }
 
     /**
-     * Input: Void
-     * Output: double
      * Function returns the price of the menu item
+     * @return price
      */
     public double getPrice() {
         return Price;
     }
 
     /**
-     * Input: double price
-     * Output: Void
      * Function sets the price of the menu item
+     * @param price the price of the menu item
      */
     public void setPrice(double price) {
         this.Price = price;
     }
 
     /**
-     * Input: Void
-     * Output: String
      * Function returns the category of the menu item
+     * @return category
      */
     public String getCategory() {return Category;}
 
     /**
-     * Input: String category
-     * Output: Void
      * Function sets the category of the menu item
+     * @param category the category of the menu item
      */
     public void setCategory(String category) {this.Category = category;}
 
     /**
-     * Input: Void
-     * Output: Bitmap
      * Function returns the image of the menu item
+     * @return image
      */
     public Bitmap getImage() {
         return image;
     }
 
     /**
-     * Input: Bitmap bitmap
-     * Output: Void
      * Function sets the image of the menu item
+     * @param bitmap the image of the menu item
      */
     public void setImage(Bitmap bitmap) {
         this.image = bitmap;
     }
 
     /**
-     * Input: Void
-     * Output: int
      * Function returns the ttl of the menu item
+     * @param TimeToLive the ttl of the menu item
      */
     public void setTimeToLive(int TimeToLive) { this.TimeToLive = TimeToLive; }
 
     /**
-     * Input: Void
-     * Output: int
      * Function returns the ttl of the menu item
+     * @return ttl
      */
     public int getTimeToLive() { return TimeToLive; }
 
 
     /**
-     * Input: String type
-     * Output: Void
      * Function uploads the dish to the database
+     *
+     * @param type the type of the dish
      */
     public void uploadDish(String type)
     {

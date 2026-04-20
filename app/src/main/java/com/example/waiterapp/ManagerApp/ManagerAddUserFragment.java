@@ -27,6 +27,12 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 
+/**
+ * @author Daniel Azar
+ * @version 1.0
+ *
+ * Fragment for the Manager to add a new waiter
+ */
 public class ManagerAddUserFragment extends Fragment {
     EditText ETname, ETemail, ETpass;
 
@@ -34,14 +40,18 @@ public class ManagerAddUserFragment extends Fragment {
     final int MAX_EMAIL_LENGTH = 50;
 
 
+    /**
+     * Empty Constructor
+     */
     public ManagerAddUserFragment() {
         // Required empty public constructor
     }
 
     /**
-     * Input: Bundle savedInstanceState
-     * Output: Void
      * Function initializes the view
+     *
+     * @param savedInstanceState If the fragment is being re-created from a previous saved state,
+     *                           this is the state.
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,9 +60,14 @@ public class ManagerAddUserFragment extends Fragment {
     }
 
     /**
-     * Input: LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState
-     * Output: View
      * Function creates a new view
+     *
+     * @param inflater           The LayoutInflater object that can be used to inflate
+     *                           any views in the fragment.
+     * @param container          If non-null, this is the parent view that the fragment's
+     *                           UI should be attached to.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     *                           from a previous saved state as given here.
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -61,9 +76,11 @@ public class ManagerAddUserFragment extends Fragment {
     }
 
     /**
-     * Input: View view, Bundle savedInstanceState
-     * Output: Void
      * Function initializes the view
+     *
+     * @param view               The View returned by onCreateView(LayoutInflater, ViewGroup, Bundle).
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     *                           from a previous saved state as given here.
      */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -79,9 +96,9 @@ public class ManagerAddUserFragment extends Fragment {
     }
 
     /**
-     * Input: View view
-     * Output: Void
      * Function handles the add waiter button click
+     *
+     * @param view The view that was clicked.
      */
     public void onAddWaiter(View view)
     {

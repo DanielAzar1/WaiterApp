@@ -25,6 +25,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
+/**
+ * @author Daniel Azar
+ * @version 1.0
+ *
+ * Class is a fragment for the Manager to view the menu
+ */
 public class ManagerMenuFragment extends Fragment implements CategoryAdapter.OnCategoryClickListener, ManagerMenuItemAdapter.OnItemClickListener{
     RecyclerView rvCategories;
     RecyclerView rvMenuItems;
@@ -36,14 +42,17 @@ public class ManagerMenuFragment extends Fragment implements CategoryAdapter.OnC
     ArrayList<String> categoryList = new ArrayList<>();
     AlertDialog.Builder adb;
 
+    /**
+     * Empty Constructor
+     */
     public ManagerMenuFragment() {
         // Required empty public constructor
     }
 
     /**
-     * Input: Bundle savedInstanceState
-     * Output: Void
      * Function initializes the view
+     *
+     * @param savedInstanceState The saved instance state of the fragment.
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,9 +60,14 @@ public class ManagerMenuFragment extends Fragment implements CategoryAdapter.OnC
     }
 
     /**
-     * Input: LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState
-     * Output: View
      * Function creates a new view
+     *
+     * @param inflater           The LayoutInflater object that can be used to inflate
+     *                           any views in the fragment,
+     * @param container          If non-null, this is the parent view that the fragment's
+     *                           UI should be attached to.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     *                           from a previous saved state as given here.
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,9 +76,11 @@ public class ManagerMenuFragment extends Fragment implements CategoryAdapter.OnC
     }
 
     /**
-     * Input: View view, Bundle savedInstanceState
-     * Output: Void
      * Function initializes the view
+     *
+     * @param view               The View returned by onCreateView(LayoutInflater, ViewGroup, Bundle).
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     *                           from a previous saved state as given here.
      */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -91,9 +107,10 @@ public class ManagerMenuFragment extends Fragment implements CategoryAdapter.OnC
     }
 
     /**
-     * Input: String category, int position
-     * Output: Void
      * Function handles the category click
+     *
+     * @param category The category that was clicked.
+     * @param position The position of the category in the list.
      */
     @Override
     public void onCategoryClick(String category, int position) {
@@ -112,9 +129,9 @@ public class ManagerMenuFragment extends Fragment implements CategoryAdapter.OnC
     }
 
     /**
-     * Input: MenuItem item
-     * Output: Void
      * Function handles the delete button click
+     *
+     * @param item The item to be deleted.
      */
     @Override
     public void onDeleteClick(MenuItem item) {

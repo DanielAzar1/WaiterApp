@@ -18,6 +18,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author  Daniel Azar
+ * @version 1.0
+ *
+ * adapter for the order list
+ */
 public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.OrderItemViewHolder>
 {
     private final ArrayList<OrderFragment.Order> orders;
@@ -28,10 +34,14 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         this.listener = listener;
     }
 
+
     /**
-     * Input: ViewGroup parent, int viewType
-     * Output: OrderItemViewHolder
-     * Function creates a new view
+     * Function creates a new OrderItemViewHolder
+     *
+     * @param parent   The ViewGroup into which the new View will be added after it is bound to
+     *                 an adapter position.
+     * @param viewType The view type of the new View.
+     * @return new OrderItemViewHolder that holds a view of the given view type.
      */
     @NonNull
     @Override
@@ -42,9 +52,11 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
     }
 
     /**
-     * Input: OrderItemViewHolder holder, int position
-     * Output: Void
      * Function binds the data to the views
+     *
+     * @param holder   The ViewHolder which should be updated to represent the contents of the
+     *                 item at the given position in the data set.
+     * @param position The position of the item within the adapter's data set.
      */
     @Override
     public void onBindViewHolder(@NonNull OrderItemViewHolder holder, int position) {
@@ -72,9 +84,9 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
 
 
     /**
-     * Input: Void
-     * Output: int
      * Function returns the number of items in the list
+     *
+     * @return number of items in the list
      */
     @Override
     public int getItemCount() {
@@ -86,9 +98,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         void onOrderClick(OrderFragment.Order order);
     }
 
+
     /**
-     * Input: Void
-     * Output: Void
      * Function Forces  a refresh of the adapter every 1 minute
      */
     public void startTimer() {
@@ -102,9 +113,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         }, 60000);
     }
 
+
     /**
-     * Input: Void
-     * Output: Void
      * Function sorts the orders by deadline
      */
     public void sortByDeadline() {
@@ -121,13 +131,20 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         notifyDataSetChanged();
     }
 
+    /**
+     * @author  Daniel Azar
+     * @version 1.0
+     *
+     * ViewHolder for the order list
+     */
     public static class OrderItemViewHolder extends RecyclerView.ViewHolder {
         TextView tvTime, tvTableID;
 
+
         /**
-         * Input: View itemView
-         * Output: Void
          * Function initializes the views
+         *
+         * @param itemView the view of the item
          */
         public OrderItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -137,9 +154,10 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         }
 
         /**
-         * Input: String category, boolean isSelected
-         * Output: Void
          * Function binds the data to the views
+         *
+         * @param Time the time of the order
+         * @param tableID the table number of the order
          */
         void bind(String Time, String tableID) {
             tvTime.setText(Time);

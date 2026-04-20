@@ -17,12 +17,20 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+/**
+ * Class is a helper class for Handling Images.
+ *
+ * @author Daniel Azar
+ * */
 public class ImageHelper {
 
     /**
-     * Input: Context context, Uri uri
-     * Output: Bitmap
      * Function gets a bitmap from a uri
+     *
+     * @param context the context of the activity
+     * @param uri the uri of the image
+     *
+     * @return bitmap of the given image
      */
     public static Bitmap getBitmapFromUri(Context context, Uri uri)
     {
@@ -40,9 +48,10 @@ public class ImageHelper {
     }
 
     /**
-     * Input: Uri uri, String path
-     * Output: Void
      * Function uploads an image to firebase storage
+     *
+     * @param uri the image to upload
+     * @param path the path to upload to
      */
     public static void uploadImageToFirebase(Uri uri, String path)
     {

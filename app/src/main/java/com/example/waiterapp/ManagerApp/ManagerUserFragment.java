@@ -20,36 +20,57 @@ import com.example.waiterapp.User;
 
 import java.util.ArrayList;
 
-public class ManagerUserFragment extends Fragment implements ManagerUserItemAdapter.OnUserClickListener{
+/**
+ * Fragment for the Manager to view, manage, and remove users from the system.
+ * This fragment displays a list of users in a RecyclerView and provides
+ * functionality to delete a user with a confirmation dialog.
+ *
+ * @author Daniel Azar
+ * @version 1.0
+ */
+public class ManagerUserFragment extends Fragment implements ManagerUserItemAdapter.OnUserClickListener {
     ManagerUserItemAdapter adapter;
     RecyclerView rvManagerUsers;
 
     AlertDialog.Builder adb;
 
+    /**
+     * empty constructor
+     */
     public ManagerUserFragment() {
         // Required empty public constructor
     }
 
+    /**
+     * Called to do initial creation of the fragment.
+     *
+     * @param savedInstanceState If the fragment is being re-created from a previous saved state, this is the state.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     /**
-     * Input: LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState
-     * Output: View
-     * Function creates a new view
+     * Called to have the fragment instantiate its user interface view.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate any views in the fragment.
+     * @param container If non-null, this is the parent view that the fragment's UI should be attached to.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state.
+     * @return Return the View for the fragment's UI, or null.
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_manager_user, container, false);
     }
 
     /**
-     * Input: View view, Bundle savedInstanceState
-     * Output: Void
-     * Function initializes the view
+     * Called immediately after onCreateView(LayoutInflater, ViewGroup, Bundle) has returned.
+     * Initializes the RecyclerView, adapter, and the delete confirmation dialog builder.
+     *
+     * @param view The View returned by onCreateView(LayoutInflater, ViewGroup, Bundle).
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state.
      */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -66,9 +87,11 @@ public class ManagerUserFragment extends Fragment implements ManagerUserItemAdap
     }
 
     /**
-     * Input: User user
-     * Output: Void
-     * Function handles the delete button click*/
+     * Handles the delete button click for a specific user.
+     * Shows a confirmation dialog before removing the user from Firebase and the local list.
+     *
+     * @param user The {@link User} object to be deleted.
+     */
     @Override
     public void onDeleteClick(User user) {
         adb.setMessage("Are you sure you want to remove " + user.getName() + "?");
@@ -92,13 +115,14 @@ public class ManagerUserFragment extends Fragment implements ManagerUserItemAdap
     }
 
     /**
-     * Input: Void
-     * Output: Void
-     * Function updates the adapter when the fragment is resumed
+     * Called when the fragment is visible to the user and actively running.
+     * Refreshes the adapter to ensure the UI is up to date.
      */
     @Override
     public void onResume() {
         super.onResume();
-        adapter.notifyDataSetChanged();
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
     }
 }

@@ -22,13 +22,19 @@ import com.google.firebase.database.DatabaseError;
 
 import java.util.ArrayList;
 
+/**
+ * @author Daniel Azar
+ * @version 1.0
+ *
+ * This class is the main activity for the Manager app.
+ */
 public class ManagerMenu extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
 
     /**
-     * Input: Bundle savedInstanceState
-     * Output: Void
      * Function initializes the view
+     *
+     * @param savedInstanceState The saved instance state of the activity.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +57,6 @@ public class ManagerMenu extends AppCompatActivity {
     }
 
     /**
-     * Input: Void
-     * Output: Void
      * Function sets up the bottom navigation bar
      */
     private void setupBottomNavigation() {
@@ -94,8 +98,6 @@ public class ManagerMenu extends AppCompatActivity {
     }
 
     /**
-     * Input: OnRatingDataLoaded listener
-     * Output: Void
      * Function loads the rating and comments from the database
      */
     public void LoadRatingAndComments()

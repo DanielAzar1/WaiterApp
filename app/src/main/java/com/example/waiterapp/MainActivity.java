@@ -20,6 +20,10 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 
+/**
+ * Class is the main activity for the waiter app
+ * @author Daniel Azar
+ * */
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
 
@@ -29,9 +33,10 @@ public class MainActivity extends AppCompatActivity {
     private static final int NOTIFICATION_ID = 1;
 
     /**
-     * Input: Bundle savedInstanceState
-     * Output: Void
      * Function initializes the view
+     *
+     * @param savedInstanceState if the activity is being re-initialized with an instance,
+     *                           this is that instance.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,9 +77,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Input: String message
-     * Output: Void
      * Function shows a notification with a given message
+     *
+     * @param message the message to show
      */
     private void showOrderNotification(String message) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
@@ -90,8 +95,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Input: Void
-     * Output: Void
      * Function sets up the bottom navigation bar
      */
     private void setupBottomNavigation() {
@@ -125,8 +128,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Input: Void
-     * Output: Void
      * Function initializes the notification manager
      */
     private void initializeNotif()

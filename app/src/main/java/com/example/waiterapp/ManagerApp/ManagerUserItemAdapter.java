@@ -17,28 +17,46 @@ import com.example.waiterapp.User;
 import java.util.List;
 import java.util.Locale;
 
-public class ManagerUserItemAdapter extends RecyclerView.Adapter<ManagerUserItemAdapter.UserViewHolder>{
+/**
+ * Adapter class for managing and displaying a list of {@link User} objects in a RecyclerView.
+ * This adapter handles user data binding and provides an interface for handling deletion events.
+ *
+ * @author Daniel Azar
+ * @version 1.0
+ */
+public class ManagerUserItemAdapter extends RecyclerView.Adapter<ManagerUserItemAdapter.UserViewHolder> {
     private List<User> items;
     private final OnUserClickListener listener;
 
+    /**
+     * Interface definition for a callback to be invoked when a user item is clicked.
+     */
     public interface OnUserClickListener {
+        /**
+         * Called when the delete button for a specific user is clicked.
+         *
+         * @param user The user object associated with the clicked item.
+         */
         void onDeleteClick(User user);
     }
+
     /**
-     * Input: OnUserClickListener listener, List<User> items
-     * Output: Void
-     * Function initializes the adapter
+     * Constructs a new ManagerUserItemAdapter.
+     *
+     * @param listener The listener for user click events.
+     * @param items    The initial list of users to display.
      */
-    public ManagerUserItemAdapter(OnUserClickListener listener, List<User> items)
-    {
+    public ManagerUserItemAdapter(OnUserClickListener listener, List<User> items) {
         this.listener = listener;
         this.items = items;
     }
 
     /**
-     * Input: ViewGroup parent, int viewType
-     * Output: ManagerUserItemAdapter.UserViewHolder
-     * Function creates a new view
+     * Called when RecyclerView needs a new {@link UserViewHolder} of the given type to represent an item.
+     *
+     * @param parent   The ViewGroup into which the new View will be added after it is bound to an adapter position.
+     * @param viewType The view type of the new View.
+     * @return A new UserViewHolder that holds a View of the given view type.
      */
     @NonNull
     @Override
@@ -48,24 +66,30 @@ public class ManagerUserItemAdapter extends RecyclerView.Adapter<ManagerUserItem
     }
 
     /**
-     * Input: ManagerUserItemAdapter.UserViewHolder holder, int position
-     * Output: Void
-     * Function binds the data to the views
+     * Called by RecyclerView to display the data at the specified position.
+     *
+     * @param holder   The ViewHolder which should be updated to represent the contents of the item at the given position.
+     * @param position The position of the item within the adapter's data set.
      */
     @Override
     public void onBindViewHolder(@NonNull ManagerUserItemAdapter.UserViewHolder holder, int position) {
         holder.bind(items.get(position), listener);
     }
 
+    /**
+     * Returns the total number of items in the data set held by the adapter.
+     *
+     * @return The total number of items in this adapter.
+     */
     @Override
     public int getItemCount() {
         return items.size();
     }
 
     /**
-     * Input: List<MenuItem> items
-     * Output: Void
-     * Function updates the data in the adapter
+     * Updates the data set of the adapter and notifies it of the change.
+     *
+     * @param items The new list of users to be displayed.
      */
     public void setItems(List<User> items) {
         this.items.clear();
@@ -74,9 +98,9 @@ public class ManagerUserItemAdapter extends RecyclerView.Adapter<ManagerUserItem
     }
 
     /**
-     * Input: int position
-     * Output: Void
-     * Function removes an item from the adapter
+     * Removes a user from the adapter at the specified position.
+     *
+     * @param position The position of the item to be removed.
      */
     public void removeItem(int position) {
         items.remove(position);
@@ -84,26 +108,29 @@ public class ManagerUserItemAdapter extends RecyclerView.Adapter<ManagerUserItem
     }
 
     /**
-     * Input: User item, int position
-     * Output: Void
-     * Function adds an item to the adapter
+     * Adds a user to the adapter at the specified position.
+     *
+     * @param item     The user object to be added.
+     * @param position The position at which to insert the item.
      */
     public void addItem(User item, int position) {
         items.add(position, item);
         notifyItemInserted(position);
     }
 
-
-
+    /**
+     * ViewHolder class for user items in the RecyclerView.
+     * Holds references to the UI components for each user row.
+     */
     public static class UserViewHolder extends RecyclerView.ViewHolder {
         private final TextView tvUserName;
         private final TextView tvUserDescription;
         private final ImageButton ibDelete;
 
         /**
-         * Input: View itemView
-         * Output: Void
-         * Function initializes the views
+         * Constructs a new UserViewHolder.
+         *
+         * @param itemView The view representing a single row in the RecyclerView.
          */
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -113,9 +140,10 @@ public class ManagerUserItemAdapter extends RecyclerView.Adapter<ManagerUserItem
         }
 
         /**
-         * Input: User user, final OnUserClickListener listener
-         * Output: Void
-         * Function binds the data to the views
+         * Binds the user data to the views and sets up the click listener for the delete button.
+         *
+         * @param user     The user data to display.
+         * @param listener The listener to handle delete events.
          */
         public void bind(User user, final ManagerUserItemAdapter.OnUserClickListener listener) {
             tvUserName.setText(user.getName());

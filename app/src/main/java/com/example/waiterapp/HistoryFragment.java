@@ -33,6 +33,8 @@ import java.util.Map;
  * @author Daniel Azar
  * */
 public class HistoryFragment extends Fragment{
+
+    private int MAX_COMMENT_LENGTH = 100;
     public static class DoneOrder
     {
         OrderFragment.Order order;
@@ -112,6 +114,8 @@ public class HistoryFragment extends Fragment{
             public void onDataChange(@NonNull com.google.firebase.database.DataSnapshot snapshot) {
                 for (com.google.firebase.database.DataSnapshot data : snapshot.getChildren()) {
                     if (data.getKey().equals(FBref.currentUser.getUID())) {
+                        orders.clear();
+                        doneOrders.clear();
                         com.google.firebase.database.GenericTypeIndicator<Map<String, Integer>> t =
                                 new com.google.firebase.database.GenericTypeIndicator<Map<String, Integer>>() {};
                         for (com.google.firebase.database.DataSnapshot child : data.getChildren()) {
@@ -227,12 +231,23 @@ public class HistoryFragment extends Fragment{
 
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                rating = Integer.valueOf(etRate.getText().toString());
+                String temp = etRate.getText().toString();
+                try
+                    {rating = Integer.valueOf(temp);}
+                catch (NumberFormatException e)
+                {
+                    Toast.makeText(getContext(), "Invalid Rating", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (rating > 5 || rating < 1)
                     Toast.makeText(getContext(), "Rating must be between 1 and 5", Toast.LENGTH_SHORT).show();
                 else
                 {
                     comment = etComment.getText().toString();
+                    if (comment.length() > MAX_COMMENT_LENGTH){
+                        Toast.makeText(getContext(), "Comment must be less than " + MAX_COMMENT_LENGTH + " characters", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     Log.d("Special Request", comment);
                     uploadRating(order);
                 }

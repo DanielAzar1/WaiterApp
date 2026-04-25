@@ -7,6 +7,7 @@ import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -57,8 +58,8 @@ public class ManagerMenu extends AppCompatActivity {
     }
 
     /**
-     * Function sets up the bottom navigation bar
-     */
+     * Function sets up the bottom navigation
+     **/
     private void setupBottomNavigation() {
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -136,28 +137,42 @@ public class ManagerMenu extends AppCompatActivity {
             }
         });
 
-        //Load 5 latest comments
-        FBref.refRatings.limitToLast(5).addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener()
-        {
-
+        FBref.refRatings.addChildEventListener(new com.google.firebase.database.ChildEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                FBref.comments.clear();
-                for (DataSnapshot tableBranch : snapshot.getChildren()) {
-                    for (DataSnapshot waiterBranch : tableBranch.getChildren()) {
-                        for (DataSnapshot orderBranch : waiterBranch.getChildren()) {
-                            String comm = orderBranch.child("Comment").getValue(String.class);
-                            FBref.comments.add(comm);
-                            if (FBref.comments.size() > 10)
-                                return;
+            public void onChildAdded(@NonNull DataSnapshot tableSnapshot, @Nullable String previousChildName) {
+                String currentTable = tableSnapshot.getKey();
+                for (DataSnapshot waiterSnapshot : tableSnapshot.getChildren()) {
+                    for (DataSnapshot orderSnapshot : waiterSnapshot.getChildren()) {
+                        String rawComment = orderSnapshot.child("Comment").getValue(String.class);
+                        if (rawComment != null && !rawComment.isEmpty()) {
+                            if (!FBref.comments.contains(rawComment + " - Table " + currentTable))
+                                FBref.comments.add(rawComment + " - Table " + currentTable);
                         }
                     }
                 }
             }
 
             @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName)
+            {
+                String currentTable = snapshot.getKey();
+                for (DataSnapshot waiterSnapshot : snapshot.getChildren()) {
+                    for (DataSnapshot orderSnapshot : waiterSnapshot.getChildren()) {
+                        String rawComment = orderSnapshot.child("Comment").getValue(String.class);
+                        if (rawComment != null && !rawComment.isEmpty()) {
+                            if (!FBref.comments.contains(rawComment + " - Table " + currentTable))
+                                FBref.comments.add(rawComment + " - Table " + currentTable);
+                        }
+                    }
+                }
+            }
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {}
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
+            @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("ManagerMenuError", "Couldn't get comments");
+                Log.d("ManagerMenuError", "Comment listener cancelled: " + error.getMessage());
             }
         });
 

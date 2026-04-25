@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.waiterapp.KitchenApp.KitchenMain;
+import com.example.waiterapp.ManagerApp.ManagerAddUserFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -43,6 +44,9 @@ public class LoginActivity extends AppCompatActivity {
     ArrayList<User> managers = new ArrayList<>();
     ArrayList<User> waiters = new ArrayList<>();
     public static wifiReciever reciever;
+
+    final int MAX_EMAIL_LENGTH = 50;
+    final int MAX_PASS_LENGTH = 50;
 
     /**
      * Function initializes the view
@@ -80,54 +84,71 @@ public class LoginActivity extends AppCompatActivity {
      * @param view the view of the button
      */
     public void onLogin(View view) {
-        for (int i = 0; i < managers.size(); i++)
-            Log.d("ManagerName" + i, managers.get(i).getName());
+        String email = userET.getText().toString();
+        String pass = passET.getText().toString();
 
-        FBref.refAuth.signInWithEmailAndPassword(userET.getText().toString(), passET.getText().toString())
-        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    FirebaseUser user = FBref.refAuth.getCurrentUser();
-                    if (user.getUid().equals(FBref.KitchenUser.getUID()))
-                    {
-                        FBref.currentUser = FBref.KitchenUser;
-                        Log.d("Kitchen", "Start Kitchen Activity");
-                        LoginActivity.this.unregisterReceiver(reciever);
-                        Intent intent = new Intent(LoginActivity.this, KitchenMain.class);
-                        startActivity(intent);
-                    }
-                    for (int i = 0; i < managers.size(); i++)
-                    {
-                        if (user.getUid().equals(managers.get(i).getUID()))
-                        {
-                            FBref.currentUser = managers.get(i);
-                            FBref.userList = waiters;
-                            Log.d("Manager", "Start Manager Activity");
-                            LoginActivity.this.unregisterReceiver(reciever);
-                            Intent intent = new Intent(LoginActivity.this, ManagerMenu.class);
-                            startActivity(intent);
-                            break;
+        if (checkInput(email, pass)) {
+            for (int i = 0; i < managers.size(); i++)
+                Log.d("ManagerName" + i, managers.get(i).getName());
+
+            FBref.refAuth.signInWithEmailAndPassword(userET.getText().toString(), passET.getText().toString())
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                FirebaseUser user = FBref.refAuth.getCurrentUser();
+                                if (user == null) // Safeguard
+                                    return;
+                                if (user.getUid().equals(FBref.KitchenUser.getUID())) {
+                                    FBref.currentUser = FBref.KitchenUser;
+                                    Log.d("Kitchen", "Start Kitchen Activity");
+                                    LoginActivity.this.unregisterReceiver(reciever);
+                                    Intent intent = new Intent(LoginActivity.this, KitchenMain.class);
+                                    startActivity(intent);
+                                }
+                                for (int i = 0; i < managers.size(); i++) {
+                                    if (user.getUid().equals(managers.get(i).getUID())) {
+                                        FBref.currentUser = managers.get(i);
+                                        FBref.userList = waiters;
+                                        Log.d("Manager", "Start Manager Activity");
+                                        LoginActivity.this.unregisterReceiver(reciever);
+                                        Intent intent = new Intent(LoginActivity.this, ManagerMenu.class);
+                                        startActivity(intent);
+                                        break;
+                                    }
+                                }
+                                for (int i = 0; i < waiters.size(); i++) {
+                                    if (user.getUid().equals(waiters.get(i).getUID())) {
+                                        FBref.currentUser = waiters.get(i);
+                                        Log.d("Waiter", "Start Waiter Activity");
+                                        LoginActivity.this.unregisterReceiver(reciever);
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                        break;
+                                    }
+                                }
+                            } else {
+                                Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                    for (int i = 0; i < waiters.size(); i++)
-                    {
-                        if (user.getUid().equals(waiters.get(i).getUID()))
-                        {
-                            FBref.currentUser = waiters.get(i);
-                            Log.d("Waiter", "Start Waiter Activity");
-                            LoginActivity.this.unregisterReceiver(reciever);
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            break;
-                        }
-                    }
-                } else {
-                    Toast.makeText(LoginActivity.this, "Authentication failed.",
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+                    });
+        }
+    }
+
+    private boolean checkInput(String email, String pass)
+    {
+        if (email.isEmpty() || pass.isEmpty())
+        {
+            Toast.makeText(LoginActivity.this, "Please fill all the fields!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (pass.length() > MAX_PASS_LENGTH || email.length() > MAX_EMAIL_LENGTH)
+        {
+            Toast.makeText(LoginActivity.this, "Email or Password too long!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 
     /**

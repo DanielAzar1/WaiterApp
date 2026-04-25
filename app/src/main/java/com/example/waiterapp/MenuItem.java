@@ -2,6 +2,8 @@ package com.example.waiterapp;
 
 import android.graphics.Bitmap;
 
+import com.google.firebase.database.Exclude;
+
 /**
  * Class is the class that represents a menu item
  *
@@ -11,7 +13,10 @@ public class MenuItem {
     private String Name;
     private String Description;
     private double Price;
+
+    @Exclude
     private Bitmap image;
+
     private String Category;
     private int TimeToLive;
 
@@ -103,6 +108,7 @@ public class MenuItem {
      * Function returns the image of the menu item
      * @return image
      */
+    @Exclude
     public Bitmap getImage() {
         return image;
     }
@@ -111,6 +117,7 @@ public class MenuItem {
      * Function sets the image of the menu item
      * @param bitmap the image of the menu item
      */
+    @Exclude
     public void setImage(Bitmap bitmap) {
         this.image = bitmap;
     }

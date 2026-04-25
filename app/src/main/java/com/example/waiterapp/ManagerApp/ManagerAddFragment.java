@@ -58,9 +58,12 @@ public class ManagerAddFragment extends Fragment {
     AlertDialog.Builder adb;
     AlertDialog ad;
     Uri uri;
+    Bitmap selectedBitmap;
 
     final int MAX_NAME_LENGTH = 50;
-    final int MAX_DESCRIPTION_LENGTH = 200;
+    final int MAX_DESCRIPTION_LENGTH = 100;
+    final int MAX_PRICE_LENGTH = 7; // 9999.99
+    final int MAX_TTL_LENGTH = 3;
     private final int REQUEST_CODE_PICK_IMAGE = 200;
 
     final String[] types = {"Starters", "MainCourses", "Desserts"};
@@ -194,8 +197,21 @@ public class ManagerAddFragment extends Fragment {
         if(requestCode == REQUEST_CODE_PICK_IMAGE && resultCode == RESULT_OK)
         {
             Uri uri = data.getData();
-            this.uri = uri;
-            iv.setImageBitmap(ImageHelper.getBitmapFromUri(getContext(), uri));
+            if (uri == null) return;
+
+            if (ImageHelper.isImageSizeValid(this.getContext(), uri, 1))
+            {
+                this.uri = uri;
+                selectedBitmap = ImageHelper.getBitmapFromUri(getContext(), uri);
+                iv.setImageBitmap(selectedBitmap);
+            }
+            else
+            {
+                adb.setMessage("Image is too large!\nImage Size is up to 1MB");
+                adb.setTitle("Error!");
+                ad = adb.create();
+                ad.show();
+            }
         }
     }
 
@@ -207,15 +223,14 @@ public class ManagerAddFragment extends Fragment {
     public void onAddDish(View view) {
         String category = categorySpinner.getSelectedItem().toString();
         String type = typeSpinner.getSelectedItem().toString();
-        Bitmap photo = iv.getDrawingCache();
         String name = nameET.getText().toString();
         String description = descriptionET.getText().toString();
         String price = priceET.getText().toString();
-        int ttl = Integer.parseInt(ttlEt.getText().toString());
+        String ttl = ttlEt.getText().toString();
 
-        if (name.isEmpty() || description.isEmpty() || price.isEmpty())
+        if (name.isEmpty() || description.isEmpty() || price.isEmpty() || selectedBitmap == null || ttl.isEmpty())
         {
-            adb.setMessage("Please fill all the fields!");
+            adb.setMessage("Fill all fields!");
             adb.setTitle("Error!");
             adb.show();
         }
@@ -226,9 +241,16 @@ public class ManagerAddFragment extends Fragment {
             ad = adb.create();
             ad.show();
         }
-        else if (price == "-" || price == "." || price == "-." )
+        else if (price.equals("-")  || price.equals(".") || price.equals("-.") || price.length() > MAX_PRICE_LENGTH)
         {
             adb.setMessage("Please enter a valid price!");
+            adb.setTitle("Error!");
+            ad = adb.create();
+            ad.show();
+        }
+        else if (ttl.equals("-") || ttl.equals(".") || ttl.equals("-.") || ttl.length() > MAX_TTL_LENGTH)
+        {
+            adb.setMessage("Please enter a valid time to live!");
             adb.setTitle("Error!");
             ad = adb.create();
             ad.show();
@@ -236,8 +258,25 @@ public class ManagerAddFragment extends Fragment {
         else
         {
             float priceFloat = Float.parseFloat(price);
-            MenuItem item = new MenuItem(name, description, priceFloat, category, ttl);
-            item.setImage(photo);
+            if (priceFloat <= 0)
+            {
+                adb.setMessage("Price cant be 0 or below!");
+                adb.setTitle("Error!");
+                ad = adb.create();
+                ad.show();
+                return;
+            }
+            int intTtl = Integer.parseInt(ttl);
+            if (intTtl <= 0)
+            {
+                adb.setMessage("Time to live cant be 0 or below!");
+                adb.setTitle("Error!");
+                ad = adb.create();
+                ad.show();
+                return;
+            }
+            MenuItem item = new MenuItem(name, description, priceFloat, category, intTtl);
+            item.setImage(selectedBitmap);
 
             item.uploadDish(type);
             this.item = item;

@@ -16,9 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WaiterApp">
         <activity
-            android:name=".ManagerApp.ManagerRating"
-            android:exported="false" />
-        <activity
             android:name=".KitchenApp.KitchenMain"
             android:exported="false" />
         <activity

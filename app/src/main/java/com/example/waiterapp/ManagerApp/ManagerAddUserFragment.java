@@ -38,6 +38,7 @@ public class ManagerAddUserFragment extends Fragment {
 
     final int MAX_NAME_LENGTH = 20;
     final int MAX_EMAIL_LENGTH = 50;
+    final int MAX_PASS_LENGTH = 50;
 
 
     /**
@@ -124,6 +125,13 @@ public class ManagerAddUserFragment extends Fragment {
             AlertDialog ad = adb.create();
             ad.show();
         }
+        else if (pass.length() > MAX_PASS_LENGTH)
+        {
+            adb.setTitle("Error!");
+            adb.setMessage("Password too long!");
+            AlertDialog ad = adb.create();
+            ad.show();
+        }
         else if (FullName.length() > MAX_NAME_LENGTH || Email.length() > MAX_EMAIL_LENGTH)
         {
             adb.setTitle("Error!");
@@ -157,14 +165,12 @@ public class ManagerAddUserFragment extends Fragment {
                                 ad.show();
                             } else {
                                 Exception exp = task.getException();
-                                if (exp instanceof FirebaseAuthInvalidUserException) {
-                                    adb.setMessage("Invalid email address.");
-                                } else if (exp instanceof FirebaseAuthWeakPasswordException) {
-                                    adb.setMessage("Password too weak.");
+                                if (exp instanceof FirebaseAuthWeakPasswordException) {
+                                    adb.setMessage("Password too weak.\nTry a stronger password.");
                                 } else if (exp instanceof FirebaseAuthUserCollisionException) {
                                     adb.setMessage("User already exists.");
                                 } else if (exp instanceof FirebaseAuthInvalidCredentialsException) {
-                                    adb.setMessage("General authentication failure.");
+                                    adb.setMessage("Invalid email\nCheck for missing Domain or '@'.");
                                 } else if (exp instanceof FirebaseNetworkException) {
                                     adb.setMessage("Network error. Please check your connection.");
                                 } else {
@@ -176,6 +182,8 @@ public class ManagerAddUserFragment extends Fragment {
                             }
                         }
                     });
+
+            //TODO: Fix when going back to the login page the app crashes
         }
     }
 }
